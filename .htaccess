@@ -1,0 +1,55 @@
+# --- COMPRESSION (GZIP/Brotli) ---
+
+<IfModule mod_brotli.c>
+  BrotliCompressionQuality 6
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+# --- VIDEO OPTIMIZATION ---
+
+<IfModule mod_headers.c>
+  # Enable range requests for video files
+  <FilesMatch "\.(webm|mp4|mov|avi)$">
+    Header set Accept-Ranges bytes
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+</IfModule>
+
+# --- CACHE HEADERS (STATIC ASSETS) ---
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType text/javascript "access plus 7 days"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/avif "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png  "access plus 30 days"
+  ExpiresByType image/gif  "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType video/webm "access plus 1 day"
+  ExpiresByType video/mp4 "access plus 1 day"
+  ExpiresDefault "access plus 1 hour"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|png|jpg|jpeg|gif|webp|avif|svg|woff2)$">
+    Header set Cache-Control "public, max-age=2592000, immutable"
+  </FilesMatch>
+  
+  # Shorter cache for videos to allow updates
+  <FilesMatch "\.(webm|mp4)$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+</IfModule>
+
+# --- RESOURCE HINTS ---
+
+<IfModule mod_headers.c>
+  # Preload critical resources
+  Header add Link "</VID4-FUNIL%20(1).webm>; rel=preload; as=video; type=video/webm" "expr=!%{HTTP:Range}"
+</IfModule>

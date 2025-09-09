@@ -1,0 +1,3308 @@
+﻿<!DOCTYPE html>
+
+<html lang="pt-BR">
+  <head>
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-NTPKH5KL");
+    </script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      crossorigin=""
+      href="https://trk.loversroom.online"
+      rel="preconnect"
+    />
+    <link href="//trk.loversroom.online" rel="dns-prefetch" />
+    <link crossorigin="" href="https://connect.facebook.net" rel="preconnect" />
+    <link href="https://www.googletagmanager.com" rel="preconnect" />
+    <link
+      crossorigin=""
+      href="https://126b01cea503.offrweb.co"
+      rel="preconnect"
+    />
+
+    <!-- Resource hints for performance -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+
+    <!-- Preload critical images -->
+    <link
+      rel="preload"
+      as="image"
+      href="blonde.webp"
+      media="(min-width: 768px)"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="brunette.webp"
+      media="(min-width: 768px)"
+    />
+
+    <!-- Preload first video for faster loading -->
+    <link
+      rel="preload"
+      as="video"
+      href="videofull.webm"
+      media="(min-width: 768px)"
+    />
+
+    <meta
+      content="mc8kqz6a4og6klsmcsuiv07w8iqhk7"
+      name="facebook-domain-verification"
+    />
+
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta
+      content="black-translucent"
+      name="apple-mobile-web-app-status-bar-style"
+    />
+
+    <!-- iOS/Safari specific optimizations -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Preload critical video for Safari -->
+    <link rel="preload" href="videofull.webm" as="video" type="video/webm" />
+
+    <title>Hete Dating Quiz - Vind Je Perfecte Match</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background: linear-gradient(
+          135deg,
+          #1a1a1a 0%,
+          #2d2d2d 25%,
+          #1a1a1a 50%,
+          #2d2d2d 75%,
+          #1a1a1a 100%
+        );
+        color: #ffffff;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 1.6;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* Background video container for single dynamic video */
+      .video-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -2;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Background video styles - single video layout */
+      .background-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+        opacity: 0;
+        background: linear-gradient(
+          135deg,
+          #1a1a1a 0%,
+          #2d2d2d 25%,
+          #1a1a1a 50%,
+          #2d2d2d 75%,
+          #1a1a1a 100%
+        );
+        transition: opacity 1.2s ease-in-out;
+        display: block;
+        margin: 0;
+        padding: 0;
+        border: none;
+        outline: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      /* Video loaded state */
+      .background-video.loaded {
+        opacity: 0.8;
+      }
+
+      /* Video loading placeholder */
+      .background-video::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          #1a1a1a 0%,
+          #2d2d2d 25%,
+          #1a1a1a 50%,
+          #2d2d2d 75%,
+          #1a1a1a 100%
+        );
+        z-index: 1;
+        transition: opacity 0.5s ease;
+      }
+
+      .background-video.loaded::before {
+        opacity: 0;
+      }
+
+      /* Hide video container on slow connections */
+      .slow-connection .video-container {
+        display: none;
+      }
+
+      /* Hide video on intro screen - show image background instead */
+      #intro-screen.active ~ .video-container {
+        display: none;
+      }
+
+      /* Image background for intro screen */
+      body.intro-screen-active {
+        background-image: url("blonde.webp");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        transition: background-image 0.8s ease-in-out;
+      }
+
+      /* Smooth transition when leaving intro screen */
+      body {
+        transition: background-image 0.8s ease-in-out;
+        /* iOS Safari optimizations */
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
+
+      /* iOS/Safari specific video optimizations */
+      @supports (-webkit-appearance: none) {
+        .background-video {
+          -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+        }
+
+        body.intro-screen-active {
+          -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+        }
+      }
+
+      /* iPhone specific optimizations */
+      @media screen and (max-device-width: 896px) and (-webkit-min-device-pixel-ratio: 2) {
+        .background-video {
+          transform: translate3d(0, 0, 0);
+          -webkit-transform: translate3d(0, 0, 0);
+        }
+
+        body.intro-screen-active {
+          background-attachment: scroll; /* Better performance on iOS */
+        }
+      }
+
+      /* Overlay for intro screen image background */
+      body.intro-screen-active::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      /* Enhanced fallback gradient background for slow connections */
+      .slow-connection body {
+        background: linear-gradient(
+          135deg,
+          #1a1a1a 0%,
+          #2d2d2d 25%,
+          #1a1a1a 50%,
+          #2d2d2d 75%,
+          #1a1a1a 100%
+        );
+        animation: subtleShift 10s ease-in-out infinite;
+      }
+
+      @keyframes subtleShift {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      /* Loading indicator for video */
+      .background-video:not(.loaded) {
+        background: linear-gradient(
+          135deg,
+          #1a1a1a 0%,
+          #2d2d2d 25%,
+          #1a1a1a 50%,
+          #2d2d2d 75%,
+          #1a1a1a 100%
+        );
+        background-size: 200% 200%;
+        animation: gradientShift 3s ease-in-out infinite;
+      }
+
+      @keyframes gradientShift {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      /* Overlay for better text readability */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.2);
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      @keyframes pulse {
+        0% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .screen {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding: 20px;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+
+      /* Safari-specific fix for white filter removal */
+      @supports (-webkit-appearance: none) {
+        .screen {
+          backdrop-filter: none !important;
+          -webkit-backdrop-filter: none !important;
+          background: rgba(0, 0, 0, 0.8) !important;
+        }
+      }
+
+      .screen.active {
+        display: flex;
+        animation: slideIn 0.5s ease-out;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      h1 {
+        font-size: 2.4rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+        background: linear-gradient(135deg, #ff0000, #cc0000, #990000);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 2px 4px rgba(255, 0, 0, 0.3);
+        line-height: 1.2;
+      }
+
+      h2 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #ff0000;
+        text-shadow: 0 2px 4px rgba(255, 0, 0, 0.3);
+      }
+
+      .subtitle {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 16px;
+        line-height: 1.5;
+        font-weight: 500;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      .btn-primary {
+        background: rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(15px);
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        padding: 14px 28px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-primary::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .btn-primary:hover::before {
+        left: 100%;
+      }
+
+      .btn-primary:hover {
+        background: rgba(0, 0, 0, 0.2);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+
+      #final-cta-btn {
+        background: rgba(255, 20, 20, 0.9) !important;
+        border: 2px solid rgba(255, 20, 20, 1) !important;
+        box-shadow: 0 6px 20px rgba(255, 20, 20, 0.5),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        pointer-events: auto !important;
+        z-index: 9999 !important;
+        position: relative !important;
+        cursor: pointer !important;
+      }
+
+      #final-cta-btn:hover {
+        background: rgba(255, 20, 20, 1) !important;
+        border: 2px solid rgba(255, 255, 255, 0.3) !important;
+        box-shadow: 0 8px 25px rgba(255, 20, 20, 0.7),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        transform: translateY(-3px);
+      }
+
+      #start-quiz-btn {
+        background: rgba(255, 20, 20, 0.9) !important;
+        border: 2px solid rgba(255, 20, 20, 1) !important;
+        box-shadow: 0 6px 20px rgba(255, 20, 20, 0.5),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+
+      #start-quiz-btn:hover {
+        background: rgba(255, 20, 20, 1) !important;
+        border: 2px solid rgba(255, 255, 255, 0.3) !important;
+        box-shadow: 0 8px 25px rgba(255, 20, 20, 0.7),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        transform: translateY(-3px);
+      }
+
+      .age-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .age-popup-content {
+        background: rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(15px);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 40px;
+        text-align: center;
+        max-width: 400px;
+        margin: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      .age-popup-content h2 {
+        color: #ffffff;
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+
+      .age-popup-content p {
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 30px;
+        font-size: 1.1rem;
+      }
+
+      .age-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .age-btn {
+        background: rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(15px);
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        padding: 15px 25px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .age-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+      }
+
+      .question-container {
+        width: 100%;
+      }
+
+      .question-text {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 16px;
+        color: #ffffff;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      .question-counter {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 12px;
+        font-weight: 600;
+      }
+
+      .answers-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        width: 100%;
+      }
+
+      .answer-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        padding: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-align: left;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+
+      .answer-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 0, 0, 0.1),
+          transparent
+        );
+        transition: left 0.3s;
+      }
+
+      .answer-card:hover::before {
+        left: 100%;
+      }
+
+      .answer-card:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15),
+          inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      }
+
+      .answer-image {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        flex-shrink: 0;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+      }
+
+      .answer-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 50%;
+      }
+
+      .answer-text {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #ffffff;
+      }
+
+      .terms-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+      }
+
+      .term-item {
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 15px;
+      }
+
+      .term-label {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        color: #ffffff;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+
+      .term-checkbox {
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+        position: absolute;
+      }
+
+      .checkmark {
+        width: 20px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .term-checkbox:checked + .checkmark {
+        background: rgba(255, 20, 20, 0.8);
+        border-color: rgba(255, 20, 20, 1);
+      }
+
+      .term-checkbox:checked + .checkmark::after {
+        content: "✓";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .term-text {
+        flex: 1;
+      }
+
+      .terms-image {
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .terms-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      .terms-accept-btn {
+        margin-top: 20px;
+        opacity: 0.5;
+        transition: all 0.3s ease;
+      }
+
+      .terms-accept-btn:disabled {
+        cursor: not-allowed;
+      }
+
+      .loading-container {
+        text-align: center;
+        gap: 20px;
+      }
+
+      .loading-text {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 16px;
+        color: #ff0000;
+        text-shadow: 0 2px 4px rgba(255, 0, 0, 0.3);
+      }
+
+      .progress-container {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        border-radius: 25px;
+        height: 12px;
+        overflow: hidden;
+        margin-bottom: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .progress-bar {
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          rgba(139, 69, 19, 0.6),
+          rgba(160, 82, 45, 0.8),
+          rgba(139, 69, 19, 0.6)
+        );
+        border-radius: 25px;
+        width: 0%;
+        transition: width 0.1s ease;
+        box-shadow: 0 0 10px rgba(160, 82, 45, 0.3);
+        animation: glow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+        to {
+          box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+        }
+      }
+
+      .results-container {
+        text-align: center;
+      }
+
+      .matches-list {
+        list-style: none;
+        margin: 16px 0;
+        padding: 0;
+      }
+
+      .match-item {
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 14px;
+        margin: 10px 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #ffffff;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .match-item:hover {
+        background: rgba(0, 0, 0, 0.4);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+
+      .results-text {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin: 12px 0;
+        font-weight: 500;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      @media (max-width: 600px) {
+        /* Single video on mobile */
+        .video-container {
+          overflow: hidden;
+        }
+
+        .background-video {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .screen {
+          padding: 16px;
+          margin: 8px auto;
+          max-width: 95%;
+          background: rgba(0, 0, 0, 0.05);
+          backdrop-filter: blur(5px);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+        h1 {
+          font-size: 1.8rem;
+          line-height: 1.1;
+        }
+
+        .question-text {
+          font-size: 1.2rem;
+        }
+
+        .answer-card {
+          padding: 10px;
+          gap: 10px;
+        }
+
+        .answer-image {
+          width: 40px;
+          height: 40px;
+          font-size: 20px;
+        }
+
+        .answer-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+
+        .answer-text {
+          font-size: 1rem;
+        }
+
+        .btn-primary {
+          padding: 12px 24px;
+          font-size: 1.1rem;
+        }
+      }
+
+      /* Additional mobile optimizations */
+      @media (max-width: 400px) {
+        .screen {
+          padding: 12px;
+          margin: 5px auto;
+          border-radius: 15px;
+        }
+
+        h1 {
+          font-size: 1.6rem;
+        }
+
+        .subtitle {
+          font-size: 1rem;
+        }
+
+        .answer-card {
+          padding: 8px;
+          gap: 8px;
+          border-radius: 12px;
+        }
+
+        .answer-image {
+          width: 35px;
+          height: 35px;
+          font-size: 18px;
+        }
+
+        .answer-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+
+        .btn-primary {
+          padding: 12px 20px;
+          font-size: 1rem;
+        }
+      }
+
+      /* iOS specific fixes - optimized to remove white filter */
+      @supports (-webkit-touch-callout: none) {
+        .screen {
+          background: rgba(0, 0, 0, 0.7) !important;
+          backdrop-filter: none !important;
+          -webkit-backdrop-filter: none !important;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body::before {
+          background: transparent !important;
+        }
+
+        /* Remove white overlay effects in Safari */
+        .background-video {
+          filter: none !important;
+          -webkit-filter: none !important;
+        }
+      }
+
+      /* Safari mobile specific - remove problematic styles */
+      @media screen and (-webkit-min-device-pixel-ratio: 0) {
+        _::-webkit-full-page-media,
+        _:future,
+        :root .screen {
+          background: rgba(0, 0, 0, 0.7) !important;
+          backdrop-filter: none !important;
+          -webkit-backdrop-filter: none !important;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+      }
+
+      /* Quiz-specific styles for different question types */
+      .answers-grid.two-cols {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .emoji {
+        font-size: 28px;
+      }
+
+      .icon {
+        color: white;
+        font-weight: bold;
+      }
+
+      /* Profile Match Styles */
+      .matches-container {
+        width: 100%;
+        margin: 16px 0;
+        gap: 12px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .match-profile {
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(15px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        padding: 12px;
+        margin-bottom: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        opacity: 0.8;
+        filter: grayscale(30%) blur(3px);
+      }
+
+      .match-profile::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        pointer-events: none;
+        z-index: 1;
+        backdrop-filter: blur(2px);
+      }
+
+      .match-profile:hover {
+        background: rgba(0, 0, 0, 0.4);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+
+      .profile-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .profile-photo {
+        position: relative;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid #ff0000;
+        flex-shrink: 0;
+      }
+
+      .profile-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        filter: blur(12px) grayscale(50%);
+        transition: filter 0.3s ease;
+      }
+
+      .lock-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #ffffff;
+        font-size: 24px;
+        z-index: 3;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 1);
+        background: rgba(0, 0, 0, 0.6);
+        padding: 8px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .online-indicator {
+        width: 16px;
+        height: 16px;
+        background: #00ff00;
+        border: 2px solid white;
+        border-radius: 50%;
+        animation: pulse-green 2s infinite;
+      }
+
+      @keyframes pulse-green {
+        0% {
+          box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 6px rgba(0, 255, 0, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(0, 255, 0, 0);
+        }
+      }
+
+      .profile-info {
+        flex-grow: 1;
+        text-align: left;
+      }
+
+      .profile-name {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 2px;
+      }
+
+      .age {
+        color: #ff0000;
+        font-weight: 600;
+      }
+
+      .profile-location {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 1px;
+      }
+
+      .online-status {
+        font-size: 0.8rem;
+        color: #00aa00;
+        font-weight: 600;
+        margin-bottom: 1px;
+      }
+
+      .last-seen {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .profile-actions {
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 6px;
+      }
+
+      .new-message {
+        background: linear-gradient(135deg, #ff0000, #cc0000);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        animation: pulse-message 2s infinite;
+      }
+
+      @keyframes pulse-message {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      .chat-btn {
+        background: linear-gradient(135deg, #ff0000, #cc0000);
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .chat-btn:hover {
+        background: linear-gradient(135deg, #cc0000, #ff0000);
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
+      }
+
+      .profile-preview {
+        background: rgba(255, 0, 0, 0.05);
+        border-radius: 10px;
+        padding: 8px;
+        border-left: 3px solid #ff0000;
+        text-align: left;
+        position: relative;
+        z-index: 2;
+      }
+
+      .preview-text {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-style: italic;
+        margin-bottom: 2px;
+      }
+
+      .preview-time {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .urgency-notice {
+        background: linear-gradient(135deg, #ff0000, #cc0000);
+        color: white;
+        padding: 12px;
+        border-radius: 10px;
+        margin: 16px 0;
+        text-align: center;
+        animation: pulse-notice 3s infinite;
+      }
+
+      @keyframes pulse-notice {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+        }
+        50% {
+          transform: scale(1.02);
+          box-shadow: 0 0 0 8px rgba(255, 0, 0, 0);
+        }
+      }
+
+      .notice-text {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+
+      .notice-subtext {
+        font-size: 0.85rem;
+        opacity: 0.9;
+      }
+
+      /* Mobile Responsiveness for Profiles */
+      @media (max-width: 600px) {
+        .profile-header {
+          gap: 8px;
+        }
+
+        .profile-photo {
+          width: 50px;
+          height: 50px;
+        }
+
+        .lock-overlay {
+          font-size: 16px;
+        }
+
+        .profile-img {
+          font-size: 20px;
+        }
+
+        .profile-name {
+          font-size: 1.1rem;
+        }
+
+        .profile-actions {
+          gap: 4px;
+        }
+
+        .chat-btn {
+          padding: 5px 10px;
+          font-size: 0.8rem;
+        }
+
+        .new-message {
+          font-size: 0.7rem;
+          padding: 2px 5px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .match-profile {
+          padding: 10px;
+        }
+
+        .profile-header {
+          gap: 6px;
+        }
+
+        .profile-photo {
+          width: 45px;
+          height: 45px;
+        }
+
+        .lock-overlay {
+          font-size: 14px;
+        }
+
+        .profile-name {
+          font-size: 1rem;
+        }
+
+        .profile-location,
+        .online-status {
+          font-size: 0.8rem;
+        }
+
+        .last-seen {
+          font-size: 0.7rem;
+        }
+      }
+
+      /* Fix de alinhamento de ícones nas respostas */
+      .answer-image {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 0;
+      }
+      .answer-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        border-radius: 50%;
+      }
+
+      .answer-image {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 0;
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+      .answer-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        border-radius: 50%;
+      }
+      .answer-image .emoji {
+        font-size: 28px;
+        line-height: 1;
+        display: block;
+      }
+      .subtitle {
+        color: #fff !important; /* Subtítulo branco */
+      }
+
+      .chatlovers {
+        font-size: 12px;
+        color: #ccc; /* Texto cinza discreto */
+        display: block;
+        margin-top: 15px;
+        line-height: 1.6;
+        text-align: left;
+      }
+
+      .chatlovers-list {
+        margin-left: 8px; /* Aproxima o traço do texto */
+        line-height: 1.6;
+      }
+      .attention-title {
+        color: #ff0000;
+        font-weight: 700;
+        text-shadow: 0 2px 4px rgba(255, 0, 0, 0.3);
+      }
+      .question-subtitle {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 15px;
+        line-height: 1.4;
+      }
+
+      /* === PRIVACY SCREEN STYLES === */
+      .terms-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+      }
+
+      .preview-images {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        width: 100%;
+        margin: 40px auto;
+        max-width: 540px;
+      }
+
+      .preview-images img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        border-radius: 30px;
+        border: 5px solid #ff0000;
+        transition: all 0.3s ease;
+        box-shadow: 0 12px 35px rgba(255, 0, 0, 0.7);
+        display: block;
+      }
+
+      .preview-images img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6);
+        border-color: #ffffff;
+      }
+
+      .term-item {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .term-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .term-text {
+        color: #ffffff;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+
+      /* Mobile styles for privacy screen */
+      @media (max-width: 768px) {
+        .terms-container {
+          gap: 15px;
+        }
+
+        .preview-images {
+          gap: 15px;
+          margin: 30px auto;
+          max-width: 100%;
+        }
+
+        .preview-images img {
+          border-radius: 20px;
+          border-width: 3px;
+        }
+
+        .term-item {
+          padding: 12px;
+        }
+
+        .term-text {
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-NTPKH5KL"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+
+    <!-- Background video container - single dynamic video -->
+    <div class="video-container">
+      <video
+        class="background-video"
+        id="background-video"
+        muted
+        loop
+        playsinline
+        webkit-playsinline
+        preload="metadata"
+        crossorigin="anonymous"
+        poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 960 1080'%3E%3Cdefs%3E%3ClinearGradient id='grad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231a1a1a;stop-opacity:1' /%3E%3Cstop offset='50%25' style='stop-color:%232d2d2d;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%231a1a1a;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23grad1)' /%3E%3C/svg%3E"
+      >
+        <!-- Source will be added dynamically -->
+      </video>
+    </div>
+    <div class="screen active" id="intro-screen">
+      <h1>
+        🔥 Wist je dat er NU lekkere vrouwen uit jouw stad online zijn in een
+        geheime chat, wachtend op een bericht van jou?
+      </h1>
+
+      <p class="subtitle">
+        Zie hun stoute kant nog vóór je hun naam weet. Doe onze snelle test en
+        krijg binnen enkele seconden toegang tot een veilige en anonieme chat om
+        vrouwen bij jou in de buurt te ontdekken die klaarstaan om je diepste
+        verlangens te vervullen.
+      </p>
+
+      <small class="chatlovers">
+        <b>CHATLOVERS</b> is de NR.1 test van Nederland om je direct naar
+        exclusieve chats met echte vrouwen te brengen die precies aan jouw
+        verwachtingen voldoen:
+        <div class="chatlovers-list">
+          - Vrouwen uit jouw stad of van over de hele wereld 🌍<br />
+          - Snelle en trefzekere test — 67% van de deelnemers zegt minstens één
+          seksdate te hebben geregeld, volgens onze partners 📊<br />
+          - Pikante gesprekken, verboden foto’s en exclusieve video’s 🔥<br />
+          - Echte ontmoetingen en gegarandeerde seks 👯‍♀️💦
+        </div>
+      </small>
+
+      <button
+        class="btn-primary"
+        id="start-quiz-btn"
+        onclick="startQuiz()"
+        type="button"
+      >
+        🔥 DOE DE TEST NU
+      </button>
+    </div>
+
+    <div class="age-popup" id="age-popup" style="display: none">
+      <div class="age-popup-content">
+        <h2>🔞 Leeftijdsverificatie 🔞</h2>
+        <p>
+          Vanaf hier wordt het alleen maar heter. Bevestig je dat je 18 jaar of
+          ouder bent?
+        </p>
+        <div class="age-buttons">
+          <button class="age-btn" onclick="confirmAge(true)">
+            Ja, ik ben 18+ jaar
+          </button>
+          <button class="age-btn" onclick="confirmAge(false)">
+            Ik ben jonger dan 18 jaar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Privacy Screen -->
+    <div class="screen" id="privacy-screen">
+      <h1>⚠️ PRIVACYBELEID</h1>
+      <p class="subtitle">
+        Ben je je ervan bewust dat er in de chat ook getrouwde/bezetten vrouwen
+        zullen zijn en dat je absolute discretie moet bewaren over alle foto's,
+        video's en afgesproken seks volgens de privacyvoorwaarden van de chat?
+      </p>
+
+      <!-- Primeira seção de imagens -->
+      <div class="preview-images">
+        <img src="3.png" alt="Privacy Image 3" loading="lazy" />
+        <img src="4.png" alt="Privacy Image 4" loading="lazy" />
+      </div>
+
+      <div class="terms-container">
+        <div class="term-item" onclick="selectPrivacyOption(0)">
+          <div class="term-text">
+            Ja, ik geef zelfs de voorkeur aan bezette vrouwen 😈
+          </div>
+        </div>
+        <div class="term-item" onclick="selectPrivacyOption(1)">
+          <div class="term-text">Ja, maar ik heb liever singles 🥵</div>
+        </div>
+        <div class="term-item" onclick="selectPrivacyOption(2)">
+          <div class="term-text">
+            Nee, ik ga alles lekken omdat ik een klootzak ben 🤢
+          </div>
+        </div>
+        <div class="term-item" onclick="selectPrivacyOption(3)">
+          <div class="term-text">Nee, ik blijf liever bij mijn handje 🤭</div>
+        </div>
+      </div>
+
+      <!-- Segunda seção de imagens -->
+      <div class="preview-images">
+        <img src="5.png" alt="Privacy Image 5" loading="lazy" />
+        <img src="6.png" alt="Privacy Image 6" loading="lazy" />
+      </div>
+    </div>
+
+    <div class="screen" id="quiz-screen">
+      <div class="question-container">
+        <div class="question-counter">
+          <span id="current-question"></span> van
+          <span id="total-questions"></span>
+        </div>
+        <div class="question-text" id="question-text"></div>
+        <div class="answers-grid" id="answers-container"></div>
+      </div>
+    </div>
+    <div class="screen loading-container" id="loading-screen">
+      <div class="loading-text" id="loading-text">
+        We zoeken de heetste, best passende vrouwen voor jou...
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+    </div>
+    <div class="screen results-container" id="results-screen">
+      <h2>🔥 PERFECTE MATCH GEVONDEN! 🔥</h2>
+      <p class="results-text">Ze is NU online en wil met JOU chatten:</p>
+      <div class="matches-container" id="selected-match"></div>
+      <div class="urgency-notice">
+        <div class="notice-text">
+          ⚠️ WAARSCHUWING: Ze wacht op JOUW bericht!
+        </div>
+        <div class="notice-subtext">
+          Snelle verificatie vereist voor VIP-toegang
+        </div>
+      </div>
+      <button
+        class="btn-primary"
+        id="final-cta-btn"
+        onclick="redirectBasedOnChoice()"
+      >
+        💬 NU GAAN CHATTEN
+      </button>
+    </div>
+    <script>
+      const quizData = [
+        {
+          question: "Welke vrouw maakt jou NU het meest geil?",
+          subtitle:
+            "Ben je je ervan bewust dat er in de chat ook getrouwde/bezetten vrouwen zullen zijn en dat je absolute discretie moet bewaren over alle foto’s, video’s en afgesproken seks volgens de privacyvoorwaarden van de chat?",
+          answers: [
+            { text: "Sexy blondines", icon: "blonde.webp" },
+            { text: "Verleidelijke brunettes", icon: "brunette.webp" },
+            { text: "Geile MILFs", icon: "milf.webp" },
+            { text: "Heet exotische vrouwen", icon: "young.webp" },
+          ],
+        },
+        {
+          question:
+            "Met wat voor type vrouw zou je NU het liefst willen chatten?",
+          answers: [
+            {
+              text: "Getrouwde vrouwen of MILFs die spanning zoeken",
+              icon: "💍",
+            },
+            { text: "Vrouwen die graag online plezier maken", icon: "📱" },
+            { text: "Vrouwen die openstaan voor casual sex", icon: "🔞" },
+            { text: "Vrouwen die romantische dates zoeken", icon: "🌹" },
+          ],
+        },
+        {
+          question: "Wat wil jij het liefst doen met de vrouwen in deze chat?",
+          answers: [
+            { text: "Sexting", icon: "🔥" },
+            { text: "Naughty foto’s uitwisselen", icon: "📸" },
+            { text: "Videochat met cam", icon: "🎥" },
+            { text: "Casual sex afspreken", icon: "😈" },
+          ],
+        },
+        {
+          question:
+            "Zou je NU €4,99 betalen om te chatten, pikante foto’s te krijgen en geheime hete dates met casual sex te plannen met vrouwen die aan jouw wensen voldoen?",
+          answers: [
+            { text: "Ja, zeker weten", icon: "✅" },
+            {
+              text: "Ik zou zelfs meer betalen als het echt zo is",
+              icon: "💸",
+            },
+            { text: "Hangt ervan af wat ik daar vind", icon: "🤔" },
+            { text: "Nee, ik blijf liever alleen", icon: "🚫" },
+          ],
+        },
+      ];
+
+      let currentQuestionIndex = 0;
+      let userAnswers = [];
+
+      const DB_URL =
+        "postgresql://postgres:Caio1010@@db.qzpjvcxgtssaclmqjvkx.supabase.co:5432/postgres";
+
+      const profiles = {
+        maria: {
+          name: "Maria",
+          age: 26,
+          type: "Blondine",
+          location: "Amsterdam",
+          image: "maria.webp",
+          link: "https://www.google.com/search?q=maria+blonde",
+        },
+        lisa: {
+          name: "Lisa",
+          age: 31,
+          type: "MILF",
+          location: "Rotterdam",
+          image: "lisa.webp",
+          link: "https://www.google.com/search?q=lisa+milf",
+        },
+        eva: {
+          name: "Eva",
+          age: 22,
+          type: "Brunette",
+          location: "Utrecht",
+          image: "eva.webp",
+          link: "https://www.google.com/search?q=eva+brunette",
+        },
+        sofia: {
+          name: "Sofia",
+          age: 24,
+          type: "Exotisch",
+          location: "Den Haag",
+          image: "young.webp",
+          link: "https://www.google.com/search?q=sofia+exotic",
+        },
+      };
+
+      const introScreen = document.getElementById("intro-screen");
+      const quizScreen = document.getElementById("quiz-screen");
+      const loadingScreen = document.getElementById("loading-screen");
+      const resultsScreen = document.getElementById("results-screen");
+      const startQuizBtn = document.getElementById("start-quiz-btn");
+      const finalCtaBtn = document.getElementById("final-cta-btn");
+      const currentQuestionSpan = document.getElementById("current-question");
+      const totalQuestionsSpan = document.getElementById("total-questions");
+      const questionText = document.getElementById("question-text");
+      const answersContainer = document.getElementById("answers-container");
+      const loadingText = document.getElementById("loading-text");
+      const progressBar = document.getElementById("progress-bar");
+
+      function init() {
+        // Add intro screen background class initially
+        document.body.classList.add("intro-screen-active");
+
+        // Show all questions now that privacy is handled separately
+        totalQuestionsSpan.textContent = quizData.length;
+
+        // Check if coming from privacy page
+        if (window.location.hash === "#quiz-start") {
+          // Start from the second question (woman type preference) - index 1
+          // Don't remove questions, just start from index 1
+          currentQuestionIndex = 1; // Start from "Welke vrouw maakt jou NU het meest geil?"
+          userAnswers = [0]; // Add dummy answer for skipped terms page
+          showScreen(quizScreen);
+          displayQuestion();
+          return;
+        }
+
+        // Event listeners
+        startQuizBtn.addEventListener("click", startQuiz);
+
+        // Sistema de redirecionamento baseado na escolha da mulher
+        finalCtaBtn.addEventListener("click", function () {
+          redirectBasedOnChoice();
+        });
+
+        // Event listener adicional como backup para garantir funcionamento
+        document.addEventListener("click", function (e) {
+          if (e.target && e.target.id === "final-cta-btn") {
+            e.preventDefault();
+            e.stopPropagation();
+
+            redirectBasedOnChoice();
+          }
+        });
+      }
+
+      // Global video cache for optimization
+      const videoCache = new Map();
+      const videoBuffers = new Map();
+      const posterCache = new Map();
+
+      // Generate poster images from video first frame
+      function generateVideoPoster(videoElement, videoSrc) {
+        if (posterCache.has(videoSrc)) {
+          videoElement.poster = posterCache.get(videoSrc);
+          return;
+        }
+
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        const tempVideo = document.createElement("video");
+        tempVideo.crossOrigin = "anonymous";
+        tempVideo.muted = true;
+        tempVideo.preload = "metadata";
+
+        tempVideo.addEventListener("loadeddata", () => {
+          // Set canvas size to video dimensions
+          canvas.width = tempVideo.videoWidth || 640;
+          canvas.height = tempVideo.videoHeight || 360;
+
+          // Draw first frame to canvas
+          ctx.drawImage(tempVideo, 0, 0, canvas.width, canvas.height);
+
+          // Convert to data URL and cache
+          const posterDataUrl = canvas.toDataURL("image/jpeg", 0.8);
+          posterCache.set(videoSrc, posterDataUrl);
+
+          // Apply poster to all videos with this source
+          document
+            .querySelectorAll(`video source[src="${videoSrc}"]`)
+            .forEach((source) => {
+              const video = source.parentElement;
+              video.poster = posterDataUrl;
+            });
+        });
+
+        tempVideo.addEventListener("error", () => {
+          console.log(`Could not generate poster for ${videoSrc}`);
+        });
+
+        tempVideo.src = videoSrc;
+        tempVideo.currentTime = 0.1; // Slightly ahead to avoid black frame
+      }
+
+      // Generate posters for all videos
+      function generateAllPosters() {
+        const allVideos = [
+          "VID1-FUNIL.webm",
+          "VID2-FUNIL.webm",
+          "VID3-FUNIL.webm",
+          "VID4-FUNIL%20(1).webm",
+        ];
+
+        // Generate posters for current page videos
+        document.querySelectorAll("video").forEach((video) => {
+          const source = video.querySelector("source");
+          if (source && allVideos.includes(source.src.split("/").pop())) {
+            generateVideoPoster(video, source.src);
+          }
+        });
+      }
+
+      // Preload single video for better performance
+      function preloadAllVideos() {
+        console.log("Preloading critical video resources...");
+
+        const isSafari = /^((?!chrome|android).)*safari/i.test(
+          navigator.userAgent
+        );
+
+        // Only preload our single video
+        const videoSrc = "videofull.webm";
+        preloadVideo(videoSrc, isSafari, true); // true = priority
+
+        // Also call the main background video preload
+        setTimeout(() => {
+          preloadBackgroundVideo();
+        }, 100);
+
+        // Optimize current videos on page
+        optimizeCurrentVideos();
+      }
+
+      function preloadVideo(src, isSafari = false, isPriority = false) {
+        if (videoCache.has(src)) return;
+
+        const video = document.createElement("video");
+
+        // Priority videos get more aggressive preload settings
+        if (isPriority) {
+          video.preload = "auto"; // Force full preload for priority
+          video.setAttribute("preload", "auto");
+        } else if (isSafari) {
+          video.preload = "metadata"; // Safari funciona melhor com metadata
+          video.setAttribute("x-webkit-airplay", "allow");
+        } else {
+          video.preload = "auto";
+        }
+        video.muted = true;
+        video.crossOrigin = "anonymous";
+        video.src = src;
+
+        video.addEventListener("loadeddata", () => {
+          videoCache.set(src, video);
+          console.log(`Video preloaded: ${src}`);
+        });
+
+        video.addEventListener("error", (e) => {
+          console.warn(`Failed to preload video: ${src}`, e);
+        });
+
+        // Start loading
+        video.load();
+      }
+
+      function optimizeCurrentVideos() {
+        const videos = document.querySelectorAll(".video-quadrant video");
+
+        videos.forEach((video, index) => {
+          // Enhanced video properties
+          video.load();
+          video.currentTime = 0;
+          video.volume = 0;
+          video.playbackRate = 1.0;
+
+          // Pre-buffer the start for seamless looping
+          video.addEventListener("loadeddata", function () {
+            // Seek to near end and back to start to buffer both points
+            const originalTime = this.currentTime;
+            this.currentTime = Math.max(0, this.duration - 0.5);
+            setTimeout(() => {
+              this.currentTime = originalTime;
+            }, 100);
+          });
+
+          // Perfect seamless loop - ultra close to end detection
+          let isLooping = false;
+          video.addEventListener("timeupdate", function () {
+            // Prevent multiple rapid calls
+            if (isLooping) return;
+
+            // Loop seamlessly when extremely close to the end (last 0.03 seconds)
+            if (this.duration - this.currentTime < 0.03 && this.duration > 0) {
+              isLooping = true;
+              this.currentTime = 0;
+              // Reset flag after a brief moment
+              setTimeout(() => {
+                isLooping = false;
+              }, 50);
+            }
+          });
+
+          // Fallback ended listener for safety
+          video.addEventListener("ended", function () {
+            this.currentTime = 0;
+            this.play().catch(() => {});
+          });
+
+          // Better error handling and retries
+          video.addEventListener("error", function (e) {
+            console.warn(`Video error for video ${index}:`, e);
+            setTimeout(() => {
+              this.load();
+              this.play().catch(() => {});
+            }, 1000);
+          });
+
+          // Enhanced playback attempts
+          const attemptPlay = () => {
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(() => {
+                setTimeout(() => {
+                  video.play().catch(() => {});
+                }, 100 * (index + 1));
+              });
+            }
+          };
+
+          // Multiple trigger points for playback
+          video.addEventListener("loadeddata", attemptPlay);
+          video.addEventListener("canplay", attemptPlay);
+
+          // Initial play attempt
+          setTimeout(attemptPlay, 50 * index);
+
+          console.log(`Video ${index + 1} optimization complete`);
+        });
+      }
+
+      function changeVideosAfterPrivacy() {
+        // Função removida - não há mais vídeos de background
+        console.log("Video background removed - using white background");
+      }
+
+      function createOptimizedVideo(src, index) {
+        // Detectar Safari e formato WebM
+        const isSafari = /^((?!chrome|android).)*safari/i.test(
+          navigator.userAgent
+        );
+        const isWebM = src.includes(".webm");
+
+        // Use cached video if available
+        let video;
+        if (videoCache.has(src)) {
+          video = videoCache.get(src).cloneNode(false);
+          console.log(`Using cached video: ${src}`);
+        } else {
+          video = document.createElement("video");
+        }
+
+        // Set all video attributes with CDN and Safari optimizations
+        video.setAttribute("autoplay", "");
+        video.setAttribute("muted", "");
+        video.setAttribute("loop", "");
+        video.setAttribute("playsinline", "");
+        video.setAttribute("webkit-playsinline", "");
+
+        // WebM and Safari-specific preload optimization
+        if (isWebM && !isSafari) {
+          video.setAttribute("preload", "auto"); // WebM local pode usar auto para melhor performance
+        } else if (isSafari) {
+          video.setAttribute("preload", "metadata"); // Safari funciona melhor com metadata
+          video.setAttribute("x-webkit-airplay", "allow");
+        } else {
+          video.setAttribute("preload", "auto");
+        }
+
+        video.setAttribute("crossorigin", "anonymous");
+        video.setAttribute("data-video-id", `funil-video-${index + 1}`);
+
+        // Optimized CSS styles matching the base video
+        video.style.cssText = `
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center center;
+          background: #000000;
+          opacity: 0.6;
+          margin: 0;
+          padding: 0;
+          border: none;
+          display: block;
+        `;
+
+        // Enhanced event listeners with Safari optimizations
+        video.addEventListener("loadedmetadata", function () {
+          if (isSafari) {
+            // Safari: força o play após metadata carregar
+            this.play().catch((e) =>
+              console.warn("Safari autoplay failed:", e)
+            );
+          }
+        });
+
+        // Perfect seamless loop handling
+        let isLooping = false;
+        video.addEventListener("timeupdate", function () {
+          // Prevent multiple rapid calls
+          if (isLooping) return;
+
+          // Loop seamlessly when extremely close to the end (last 0.03 seconds)
+          if (this.duration - this.currentTime < 0.03 && this.duration > 0) {
+            isLooping = true;
+            this.currentTime = 0;
+            // Reset flag after a brief moment
+            setTimeout(() => {
+              isLooping = false;
+            }, 50);
+          }
+        });
+
+        video.addEventListener("ended", function () {
+          this.currentTime = 0;
+          if (isSafari) {
+            this.play().catch((e) =>
+              console.warn("Safari loop restart failed:", e)
+            );
+          } else {
+            this.play().catch((e) => console.warn("Loop restart failed:", e));
+          }
+        });
+
+        video.addEventListener("error", function (e) {
+          console.warn(`Video error for ${src}:`, e);
+          // Fallback: try to reload com delay maior para Safari
+          const delay = isSafari ? 2000 : 1000;
+          setTimeout(() => {
+            this.load();
+            this.play().catch(() => {});
+          }, delay + index * 200);
+        });
+
+        // Safari: Listener adicional para stalled
+        if (isSafari) {
+          video.addEventListener("stalled", function () {
+            console.warn("Safari video stalled, attempting recovery");
+            setTimeout(() => {
+              this.load();
+              this.play().catch(() => {});
+            }, 500);
+          });
+        }
+
+        // Buffer monitoring
+        video.addEventListener("progress", function () {
+          if (this.buffered.length > 0) {
+            const bufferedEnd = this.buffered.end(this.buffered.length - 1);
+            const duration = this.duration;
+            if (duration > 0) {
+              const bufferedPercent = (bufferedEnd / duration) * 100;
+              console.log(
+                `Video ${index + 1} buffered: ${bufferedPercent.toFixed(1)}%`
+              );
+            }
+          }
+        });
+
+        // Create source element
+        const source = document.createElement("source");
+        source.src = src;
+        source.type = isWebM ? "video/webm" : "video/mp4";
+        video.appendChild(source);
+
+        // Generate poster for dynamic video
+        generateVideoPoster(video, src);
+
+        // WebM Performance monitoring
+        if (isWebM) {
+          const startTime = performance.now();
+          video.addEventListener("loadstart", () => {
+            console.log(`WebM video load started: ${src}`);
+          });
+
+          video.addEventListener("canplay", () => {
+            const loadTime = performance.now() - startTime;
+            console.log(`WebM video ready in ${loadTime.toFixed(2)}ms: ${src}`);
+          });
+        }
+
+        // Remove loading overlay when video is ready
+        video.addEventListener("loadeddata", function () {
+          const quadrant = this.closest(".video-quadrant");
+          if (quadrant) {
+            quadrant.classList.add("video-loaded");
+          }
+        });
+
+        video.addEventListener("canplay", function () {
+          const quadrant = this.closest(".video-quadrant");
+          if (quadrant) {
+            quadrant.classList.add("video-loaded");
+          }
+        });
+
+        // Enhanced playback initiation with retries
+        const initiatePlayback = () => {
+          video.load();
+          video.currentTime = 0;
+          video.volume = 0;
+
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(() => {
+              // Progressive retry strategy
+              const retryDelays = [200, 500, 1000, 2000];
+              retryDelays.forEach((delay, retryIndex) => {
+                setTimeout(() => {
+                  video.play().catch((e) => {
+                    if (retryIndex === retryDelays.length - 1) {
+                      console.warn(
+                        `Final retry failed for video ${index + 1}:`,
+                        e
+                      );
+                    }
+                  });
+                }, delay);
+              });
+            });
+          }
+        };
+
+        // Staggered initialization to prevent resource conflicts
+        setTimeout(initiatePlayback, index * 150);
+
+        return video;
+      }
+
+      function redirectBasedOnChoice() {
+        // Check if MILF was selected (index 2 in the woman type question)
+        const womanTypeChoice = userAnswers[1]; // Second question answer (woman type)
+
+        console.log("Redirect - Woman type choice:", womanTypeChoice);
+
+        let redirectUrl;
+
+        if (womanTypeChoice === 2) {
+          // MILF selected - redirect to link X
+          redirectUrl = "https://link-x-milf.com"; // Replace with actual MILF link
+        } else {
+          // Any other option selected - redirect to link Y
+          redirectUrl = "https://link-y-normal.com"; // Replace with actual normal link
+        }
+
+        // Execute redirect
+        window.location.href = redirectUrl;
+      }
+
+      // Screen navigation
+      function showScreen(screenToShow) {
+        console.log("showScreen called with:", screenToShow);
+        const privacyScreen = document.getElementById("privacy-screen");
+        const screens = [
+          introScreen,
+          privacyScreen,
+          quizScreen,
+          loadingScreen,
+          resultsScreen,
+        ];
+        console.log("hiding all screens:", screens);
+        screens.forEach((screen) => screen.classList.remove("active"));
+        console.log("showing screen:", screenToShow);
+        screenToShow.classList.add("active");
+      }
+
+      // Start quiz
+      function startQuiz() {
+        console.log("startQuiz called");
+
+        // Enhanced Safari/iOS detection
+        const isSafari = /^((?!chrome|android).)*safari/i.test(
+          navigator.userAgent
+        );
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+        // Remove intro screen background with optimized transition for Safari
+        if (isSafari || isIOS) {
+          document.body.style.transition = "background-image 0.4s ease-out";
+        } else {
+          document.body.style.transition = "background-image 0.6s ease-in-out";
+        }
+
+        document.body.classList.remove("intro-screen-active");
+
+        // Initialize video background immediately for Safari/iOS, with small delay for others
+        if (isSafari || isIOS) {
+          // Immediate activation for Safari/iOS
+          setTimeout(() => {
+            initializeBackgroundVideo();
+          }, 50);
+        } else {
+          setTimeout(() => {
+            initializeBackgroundVideo();
+          }, 150);
+        }
+
+        const privacyScreen = document.getElementById("privacy-screen");
+        console.log("privacy screen element:", privacyScreen);
+        // Show privacy screen instead of redirecting
+        showScreen(privacyScreen);
+
+        // Show age popup after 1.5 seconds
+        setTimeout(() => {
+          showAgePopup();
+        }, 1500);
+      }
+
+      // Privacy screen functions
+      let selectedPrivacyOption = null;
+
+      function selectPrivacyOption(optionIndex) {
+        const allOptions = document.querySelectorAll(".term-item");
+
+        // Reset all options
+        allOptions.forEach((item) => {
+          item.style.background = "rgba(255, 255, 255, 0.05)";
+          item.style.borderColor = "rgba(255, 255, 255, 0.1)";
+        });
+
+        // Highlight selected option
+        const selectedItem = allOptions[optionIndex];
+        selectedItem.style.background = "rgba(255, 0, 0, 0.2)";
+        selectedItem.style.borderColor = "rgba(255, 0, 0, 0.5)";
+
+        selectedPrivacyOption = optionIndex;
+
+        // Wait 1 second then start quiz
+        setTimeout(() => {
+          // Remove any potential overlays (but keep background video)
+          const overlays = document.querySelectorAll(
+            '[style*="position: fixed"]:not(.background-video), [style*="position: absolute"]:not(.background-video)'
+          );
+          overlays.forEach((overlay) => {
+            if (
+              overlay.style.zIndex > 0 &&
+              !overlay.classList.contains("screen") &&
+              !overlay.classList.contains("age-popup") &&
+              !overlay.classList.contains("background-video")
+            ) {
+              overlay.style.display = "none";
+            }
+          });
+
+          // Start actual quiz
+          currentQuestionIndex = 0;
+          userAnswers = [];
+
+          // Store privacy answer
+          if (selectedPrivacyOption !== null) {
+            userAnswers.push(selectedPrivacyOption);
+          }
+
+          showScreen(quizScreen);
+          displayQuestion();
+        }, 1000);
+      }
+
+      function showAgePopup() {
+        const agePopup = document.getElementById("age-popup");
+        agePopup.style.display = "flex";
+      }
+
+      function confirmAge(isAdult) {
+        const agePopup = document.getElementById("age-popup");
+
+        if (isAdult) {
+          // User is 18+, just close the popup
+          agePopup.style.display = "none";
+
+          // Store that age was confirmed
+          console.log("Age confirmed, popup closed");
+        } else {
+          // User is under 18, redirect away
+          alert("Je moet 18 jaar of ouder zijn om door te gaan.");
+          window.location.href = "https://www.google.com";
+        }
+      }
+
+      // Display current question
+      function displayQuestion() {
+        const question = quizData[currentQuestionIndex];
+        // Show correct question number (1-based indexing)
+        currentQuestionSpan.textContent = currentQuestionIndex + 1;
+        questionText.textContent = question.question;
+
+        // Clear previous answers
+        answersContainer.innerHTML = "";
+
+        // Check if this is the terms page - REMOVED: now handled by separate privacy screen
+
+        // Add grid class based on number of answers
+        if (question.answers.length === 2) {
+          answersContainer.className = "answers-grid two-cols";
+        } else {
+          answersContainer.className = "answers-grid";
+        }
+
+        // Create answer cards
+        question.answers.forEach((answer, index) => {
+          const answerCard = document.createElement("div");
+          answerCard.className = "answer-card";
+
+          // Check if icon is an image (contains a dot for file extension)
+          let iconHtml;
+          if (/(png|jpe?g|webp|avif|gif)$/i.test(answer.icon)) {
+            iconHtml = `<img src="${answer.icon}" alt="${answer.text}" loading="lazy" decoding="async">`;
+          } else {
+            iconHtml = `<span class="emoji">${answer.icon}</span>`;
+          }
+          answerCard.innerHTML = `
+                    <div class="answer-image emoji">${iconHtml}</div>
+                    <div class="answer-text">${answer.text}</div>
+                `;
+
+          answerCard.addEventListener("click", () => selectAnswer(index));
+          answersContainer.appendChild(answerCard);
+        });
+      }
+
+      function displayTermsPage(question) {
+        answersContainer.className = "terms-container";
+
+        let termsHtml = "";
+        question.terms.forEach((term, index) => {
+          termsHtml += `
+            <div class="term-item">
+              <label class="term-label">
+                <input type="checkbox" id="term-${index}" class="term-checkbox">
+                <span class="checkmark"></span>
+                <span class="term-text">${term}</span>
+              </label>
+            </div>
+          `;
+        });
+
+        termsHtml += `
+          <div class="terms-image">
+            <img src="${question.image}" alt="Voorwaarden Afbeelding" loading="lazy">
+          </div>
+          <button class="btn-primary terms-accept-btn" id="terms-accept-btn" disabled onclick="acceptTerms()">
+            ✅ IK GA AKKOORD MET DE VOORWAARDEN
+          </button>
+        `;
+
+        answersContainer.innerHTML = termsHtml;
+
+        // Add event listeners to checkboxes
+        const checkboxes = document.querySelectorAll(".term-checkbox");
+        const acceptBtn = document.getElementById("terms-accept-btn");
+
+        checkboxes.forEach((checkbox) => {
+          checkbox.addEventListener("change", () => {
+            const allChecked = Array.from(checkboxes).every((cb) => cb.checked);
+            acceptBtn.disabled = !allChecked;
+            acceptBtn.style.opacity = allChecked ? "1" : "0.5";
+          });
+        });
+      }
+
+      function acceptTerms() {
+        // Simulate answer selection to proceed
+        userAnswers.push(0); // Add a dummy answer for terms page
+        currentQuestionIndex++;
+        setTimeout(() => {
+          displayQuestion();
+        }, 300);
+      }
+
+      // Select answer and move to next question
+      async function selectAnswer(answerIndex) {
+        console.log(
+          `🎯 Answer selected: ${answerIndex}, current question: ${
+            currentQuestionIndex + 1
+          }`
+        );
+
+        const question = quizData[currentQuestionIndex];
+        const selectedAnswer = question.answers[answerIndex];
+
+        userAnswers.push(answerIndex);
+
+        // Switch to next video when advancing questions
+        console.log("🎬 About to switch video...");
+        switchToNextVideo();
+        console.log("🎬 Video switch function called");
+
+        // Continue to next question or finish quiz
+        if (currentQuestionIndex < quizData.length - 1) {
+          currentQuestionIndex++;
+          setTimeout(() => {
+            displayQuestion();
+          }, 80);
+        } else {
+          // Quiz completed - go to loading screen
+          setTimeout(() => {
+            showLoadingScreen();
+          }, 80);
+        }
+      }
+
+      // Show loading screen with animation
+      function showLoadingScreen() {
+        try {
+          if (Array.isArray(loadingMessages) && loadingMessages.length) {
+            loadingText.textContent = loadingMessages[0];
+          }
+        } catch (e) {}
+
+        try {
+          if (Array.isArray(loadingMessages) && loadingMessages.length) {
+            loadingText.textContent = loadingMessages[0];
+          }
+        } catch (e) {}
+
+        showScreen(loadingScreen);
+
+        const loadingMessages = [
+          "We zoeken de heetste, best passende vrouwen voor jou...",
+          "Beschikbaarheid van sexy singles controleren...",
+          "We analyseren je voorkeuren voor de perfecte matches...",
+        ];
+
+        let messageIndex = 0;
+        let progress = 0;
+
+        const loadingInterval = setInterval(() => {
+          progress += 2;
+          progressBar.style.width = progress + "%";
+
+          // Change message every second
+          if (
+            progress % 33 === 0 &&
+            messageIndex < loadingMessages.length - 1
+          ) {
+            messageIndex++;
+            loadingText.textContent = loadingMessages[messageIndex];
+          }
+
+          if (progress >= 100) {
+            clearInterval(loadingInterval);
+            setTimeout(() => {
+              selectMatch();
+              showScreen(resultsScreen);
+            }, 200);
+          }
+        }, 30); // Update every 30ms for smooth animation
+      }
+
+      // Store selected profile globally for final redirect
+      let selectedProfile;
+
+      // Select match based on user answers
+      function selectMatch() {
+        // Check the answer for "Welke vrouw maakt jou NU het meest geil?"
+        // The woman type answer is at userAnswers[1] (second question, after privacy at [0])
+        const womanTypeAnswer = userAnswers[1];
+
+        console.log("Woman type answer:", womanTypeAnswer);
+        console.log("All user answers:", userAnswers);
+
+        // Determine which logo to show based on choice
+        let logoImage;
+
+        if (womanTypeAnswer === 2) {
+          // MILF selected - show MILF logo
+          logoImage = "logomilf.jpeg";
+          console.log("MILF selected, showing logomilf.jpeg");
+        } else {
+          // Any other option - show normal logo
+          logoImage = "logonormal.jpeg";
+          console.log("Other option selected, showing logonormal.jpeg");
+        }
+
+        // Create the match profile HTML with only the logo
+        const matchContainer = document.getElementById("selected-match");
+        matchContainer.innerHTML = `
+          <div class="match-profile">
+            <div class="profile-header">
+              <img src="${logoImage}" alt="Logo" style="width: 100%; height: auto; max-width: 300px; display: block; margin: 0 auto;" loading="lazy" decoding="async" />
+            </div>
+          </div>
+        `;
+      }
+
+      init();
+
+      // Enhanced image optimization and monitoring system - optimized for Safari
+      document.addEventListener("DOMContentLoaded", () => {
+        // Detect Safari early for immediate optimizations
+        const isSafari = /^((?!chrome|android).)*safari/i.test(
+          navigator.userAgent
+        );
+
+        // Detect slow connection first
+        detectConnectionSpeed();
+
+        // Preload background video for smooth transition, but keep it hidden
+        console.log("Starting background video preload...");
+
+        // Enhanced Safari/iOS detection (moved to outer scope)
+        const safariDetection = /^((?!chrome|android).)*safari/i.test(
+          navigator.userAgent
+        );
+        const isIOSDetection = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+        if (safariDetection || isIOSDetection) {
+          // Safari/iOS: Load immediately without any delay for best performance
+          console.log("Safari/iOS detected - aggressive preload");
+          preloadBackgroundVideo();
+        } else {
+          // Other browsers: Small delay to let DOM settle
+          setTimeout(() => {
+            preloadBackgroundVideo();
+          }, 50);
+        }
+
+        // Enhanced image optimization
+        optimizeAllImages();
+
+        // Performance monitoring
+        monitorImagePerformance();
+
+        // Network-aware loading
+        setupNetworkAwareLoading();
+
+        // Preload critical resources
+        preloadCriticalResources();
+      });
+
+      function preloadCriticalResources() {
+        // Preload important images
+        const criticalImages = [
+          "blonde.webp",
+          "brunette.webp",
+          "milf.webp",
+          "young.webp",
+          "maria.webp",
+          "lisa.webp",
+          "eva.webp",
+        ];
+
+        criticalImages.forEach((imageSrc) => {
+          const link = document.createElement("link");
+          link.rel = "preload";
+          link.as = "image";
+          link.href = imageSrc;
+          document.head.appendChild(link);
+        });
+
+        console.log("Critical resources preloaded");
+      }
+
+      function detectConnectionSpeed() {
+        const connection =
+          navigator.connection ||
+          navigator.mozConnection ||
+          navigator.webkitConnection;
+
+        let isSlowConnection = false;
+
+        if (connection) {
+          isSlowConnection =
+            connection.effectiveType === "slow-2g" ||
+            connection.effectiveType === "2g" ||
+            connection.saveData ||
+            connection.downlink < 1.5; // Less than 1.5 Mbps
+
+          console.log("Connection details:", {
+            effectiveType: connection.effectiveType,
+            downlink: connection.downlink,
+            rtt: connection.rtt,
+            saveData: connection.saveData,
+          });
+        }
+
+        // Performance-based detection
+        const startTime = performance.now();
+
+        // Test with a small image to measure actual speed
+        const testImage = new Image();
+        testImage.onload = () => {
+          const loadTime = performance.now() - startTime;
+          if (loadTime > 2000) {
+            // More than 2 seconds for a small image
+            isSlowConnection = true;
+            console.log(
+              `Slow connection detected via image test: ${loadTime}ms`
+            );
+          }
+
+          if (isSlowConnection) {
+            document.body.classList.add("slow-connection");
+            console.log("Slow connection mode activated");
+          }
+        };
+
+        testImage.onerror = () => {
+          // If test image fails, assume slow connection
+          isSlowConnection = true;
+          document.body.classList.add("slow-connection");
+          console.log("Connection test failed - assuming slow connection");
+        };
+
+        // Use a small test image (1KB)
+        testImage.src =
+          "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+
+        // Also detect by measuring total page load time
+        window.addEventListener("load", () => {
+          const totalLoadTime = performance.now() - startTime;
+          if (totalLoadTime > 5000) {
+            // More than 5 seconds total
+            document.body.classList.add("slow-connection");
+            console.log(`Slow loading detected: ${totalLoadTime}ms`);
+          }
+        });
+
+        // Initial fast check - apply immediately if obvious
+        if (isSlowConnection) {
+          document.body.classList.add("slow-connection");
+          console.log("Immediate slow connection detection");
+        }
+      }
+
+      // Single background video system
+      const videoSources = ["videofull.webm"];
+
+      let currentVideoIndex = 0;
+      let preloadedVideos = new Map();
+      const baseUrl = ""; // Local file, no base URL needed
+
+      function preloadBackgroundVideo() {
+        const videoElement = document.getElementById("background-video");
+        if (!videoElement) return;
+
+        // Skip video entirely on slow connections
+        if (document.body.classList.contains("slow-connection")) {
+          console.log("Skipping video preload due to slow connection");
+          return;
+        }
+
+        console.log("🎬 Preloading background video for smooth transition...");
+
+        // Enhanced Safari/iOS detection
+        const isSafari = /^((?!chrome|android).)*safari/i.test(
+          navigator.userAgent
+        );
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const isMobile =
+          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent
+          );
+
+        // Clear existing sources
+        videoElement.innerHTML = "";
+        videoElement.pause();
+
+        // Add source
+        const source = document.createElement("source");
+        source.src = "videofull.webm";
+        source.type = "video/webm";
+        videoElement.appendChild(source);
+
+        // Configure video element for aggressive preload
+        videoElement.muted = true;
+        videoElement.loop = true;
+        videoElement.setAttribute("playsinline", "");
+        videoElement.setAttribute("webkit-playsinline", "");
+
+        // Remove crossOrigin for local files to avoid CORS issues
+        // videoElement.crossOrigin = "anonymous";
+
+        // Aggressive preload settings - especially for Safari/iOS
+        videoElement.preload = "auto";
+        videoElement.style.opacity = "0";
+        videoElement.style.display = "block";
+
+        // Safari/iOS specific optimizations
+        if (isSafari || isIOS) {
+          videoElement.setAttribute("x-webkit-airplay", "allow");
+          videoElement.setAttribute("webkit-playsinline", "");
+          videoElement.style.filter = "none";
+          videoElement.style.webkitFilter = "none";
+
+          // Force load immediately on Safari
+          videoElement.load();
+
+          // Try to start buffering immediately
+          setTimeout(() => {
+            videoElement.currentTime = 0.1;
+            setTimeout(() => {
+              videoElement.currentTime = 0;
+            }, 50);
+          }, 100);
+        }
+
+        // Setup enhanced load handlers with faster response
+        const handleCanPlay = () => {
+          console.log(
+            `✅ Background video can play - ready for smooth transition`
+          );
+          videoElement.classList.add("preloaded");
+          videoElement.removeEventListener("canplay", handleCanPlay);
+        };
+
+        const handleLoadedData = () => {
+          console.log(`✅ Background video data loaded`);
+          videoElement.classList.add("preloaded");
+          videoElement.removeEventListener("loadeddata", handleLoadedData);
+        };
+
+        const handleError = (e) => {
+          console.error(`❌ Background video preload failed:`, e);
+          videoElement.removeEventListener("error", handleError);
+        };
+
+        // Use canplay for faster response, especially on Safari
+        videoElement.addEventListener("canplay", handleCanPlay);
+        videoElement.addEventListener("loadeddata", handleLoadedData);
+        videoElement.addEventListener("error", handleError);
+
+        // Setup perfect loop for when it eventually plays
+        setupVideoLoop(videoElement);
+
+        // Load the video immediately
+        videoElement.load();
+      }
+
+      function initializeBackgroundVideo() {
+        const videoElement = document.getElementById("background-video");
+        if (!videoElement) return;
+
+        // Skip video entirely on slow connections
+        if (document.body.classList.contains("slow-connection")) {
+          console.log("Skipping video activation due to slow connection");
+          return;
+        }
+
+        console.log("🎬 Activating preloaded background video...");
+
+        // Enhanced Safari/iOS detection
+        const isSafari = /^((?!chrome|android).)*safari/i.test(
+          navigator.userAgent
+        );
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+        // If video is already preloaded, activate it immediately
+        if (videoElement.classList.contains("preloaded")) {
+          console.log("✅ Using preloaded video for instant smooth transition");
+
+          // Immediate activation for Safari/iOS
+          videoElement.style.transition = "opacity 0.6s ease-out";
+          videoElement.style.opacity = "0";
+          videoElement.classList.add("loaded");
+
+          // Start playing immediately
+          const playPromise = videoElement.play();
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                // Instant fade in for faster response
+                videoElement.style.opacity = "0.8";
+                console.log("✅ Video playing with smooth transition");
+              })
+              .catch((e) => {
+                console.warn("Preloaded video play failed:", e);
+                // Retry for Safari/iOS
+                if (isSafari || isIOS) {
+                  setTimeout(() => {
+                    videoElement
+                      .play()
+                      .then(() => {
+                        videoElement.style.opacity = "0.8";
+                      })
+                      .catch(() => console.warn("Safari retry failed"));
+                  }, 100);
+                }
+              });
+          }
+
+          return;
+        }
+
+        // Fallback: If video wasn't preloaded, load it with Safari optimizations
+        console.log(
+          "⚠️ Video wasn't preloaded, loading with Safari optimizations..."
+        );
+
+        const isMobile =
+          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent
+          );
+
+        // Load single video with enhanced Safari support
+        loadVideoWithSafariOptimizations(
+          videoElement,
+          0,
+          isMobile,
+          isSafari,
+          isIOS
+        );
+
+        console.log("Video loading with Safari/iOS optimizations");
+      }
+
+      function loadVideoWithSafariOptimizations(
+        videoElement,
+        videoIndex,
+        isMobile,
+        isSafari,
+        isIOS
+      ) {
+        if (videoIndex >= videoSources.length) videoIndex = 0;
+
+        const videoSrc = baseUrl + videoSources[videoIndex];
+        console.log(`🎬 Loading video with Safari optimizations: ${videoSrc}`);
+
+        // Clear existing sources
+        videoElement.innerHTML = "";
+        videoElement.pause();
+
+        // Add new source
+        const source = document.createElement("source");
+        source.src = videoSrc;
+        source.type = "video/webm";
+        videoElement.appendChild(source);
+
+        // Configure video element with Safari/iOS specific settings
+        videoElement.muted = true;
+        videoElement.loop = true;
+        videoElement.setAttribute("playsinline", "");
+        videoElement.setAttribute("webkit-playsinline", "");
+
+        // Aggressive preload for Safari/iOS
+        videoElement.preload = "auto";
+
+        if (isSafari || isIOS) {
+          videoElement.setAttribute("x-webkit-airplay", "allow");
+          videoElement.style.filter = "none";
+          videoElement.style.webkitFilter = "none";
+
+          // iOS specific optimizations
+          if (isIOS) {
+            videoElement.setAttribute("webkit-playsinline", "");
+            videoElement.playsInline = true;
+          }
+        }
+
+        // Enhanced load handlers for faster Safari response
+        const handleCanPlay = () => {
+          console.log(`✅ Video can play - activating immediately`);
+          videoElement.classList.add("loaded");
+          videoElement.style.opacity = "0.8";
+
+          // Start playing immediately when ready
+          videoElement.play().catch((e) => {
+            console.warn("Safari immediate play failed:", e);
+          });
+
+          videoElement.removeEventListener("canplay", handleCanPlay);
+        };
+
+        const handleLoadedData = () => {
+          console.log(`✅ Video data loaded - Safari optimization`);
+          videoElement.classList.add("loaded");
+          videoElement.removeEventListener("loadeddata", handleLoadedData);
+        };
+
+        const handleError = (e) => {
+          console.error(`❌ Video failed to load:`, e);
+          videoElement.removeEventListener("error", handleError);
+        };
+
+        // Use multiple events for faster response on Safari
+        videoElement.addEventListener("canplay", handleCanPlay);
+        videoElement.addEventListener("loadeddata", handleLoadedData);
+        videoElement.addEventListener("error", handleError);
+
+        // Load the video
+        videoElement.load();
+
+        // Update current index
+        currentVideoIndex = videoIndex;
+
+        // Setup perfect loop
+        setupVideoLoop(videoElement);
+
+        // Force Safari to start loading immediately
+        if (isSafari || isIOS) {
+          setTimeout(() => {
+            videoElement.currentTime = 0.1;
+            setTimeout(() => {
+              videoElement.currentTime = 0;
+            }, 50);
+          }, 50);
+        }
+      }
+
+      function loadVideo(
+        videoElement,
+        videoIndex,
+        isMobile,
+        isSafari,
+        urlParams
+      ) {
+        if (videoIndex >= videoSources.length) videoIndex = 0;
+
+        const videoSrc = baseUrl + videoSources[videoIndex]; // Removed urlParams for local file
+        console.log(`🎬 Loading video ${videoIndex + 1}: ${videoSrc}`);
+
+        // Clear existing sources
+        videoElement.innerHTML = "";
+        videoElement.pause();
+
+        // Add new source
+        const source = document.createElement("source");
+        source.src = videoSrc;
+        source.type = "video/webm";
+        videoElement.appendChild(source);
+
+        // Configure video element
+        videoElement.muted = true;
+        videoElement.loop = true;
+        videoElement.setAttribute("playsinline", "");
+        videoElement.setAttribute("webkit-playsinline", "");
+        videoElement.crossOrigin = "anonymous";
+
+        if (isSafari) {
+          videoElement.preload = "auto";
+          videoElement.setAttribute("x-webkit-airplay", "allow");
+          videoElement.style.filter = "none";
+          videoElement.style.webkitFilter = "none";
+        } else {
+          videoElement.preload = isMobile ? "metadata" : "auto";
+        }
+
+        // Setup load handlers
+        const handleLoadedData = () => {
+          console.log(`✅ Video ${videoIndex + 1} loaded successfully`);
+          videoElement.classList.add("loaded");
+          videoElement.style.opacity = "0.8";
+
+          // Start playing
+          videoElement.play().catch((e) => {
+            console.warn("Play failed:", e);
+          });
+
+          videoElement.removeEventListener("loadeddata", handleLoadedData);
+        };
+
+        const handleError = (e) => {
+          console.error(`❌ Video ${videoIndex + 1} failed to load:`, e);
+          videoElement.removeEventListener("error", handleError);
+        };
+
+        videoElement.addEventListener("loadeddata", handleLoadedData);
+        videoElement.addEventListener("error", handleError);
+
+        // Load the video
+        videoElement.load();
+
+        // Update current index
+        currentVideoIndex = videoIndex;
+
+        // Setup perfect loop
+        setupVideoLoop(videoElement);
+      }
+
+      // Add new source
+      const source = document.createElement("source");
+      source.src = "videofull.webm";
+      source.type = "video/webm";
+      const videoElement = document.getElementById("background-video");
+      if (videoElement) {
+        videoElement.appendChild(source);
+      }
+      function preloadNextVideos(isMobile, isSafari, urlParams) {
+        console.log("Single video mode - no additional preloading needed");
+        // No need to preload since we only have one video
+      }
+
+      function switchToNextVideo() {
+        // Since we only have one video, just restart it
+        const videoElement = document.getElementById("background-video");
+        if (!videoElement) {
+          console.error("❌ Video element not found!");
+          return;
+        }
+
+        console.log("🔄 Restarting single video...");
+
+        // Just restart the same video for visual effect with smooth transition
+        videoElement.style.transition = "opacity 0.3s ease-in-out";
+        videoElement.style.opacity = "0.3";
+
+        setTimeout(() => {
+          videoElement.currentTime = 0;
+          videoElement.style.opacity = "0.8";
+        }, 150);
+      }
+      function setupVideoLoop(videoElement) {
+        let isLooping = false;
+
+        videoElement.addEventListener("timeupdate", function () {
+          if (isLooping) return;
+
+          if (this.duration - this.currentTime < 0.05 && this.duration > 0) {
+            isLooping = true;
+            this.currentTime = 0;
+            setTimeout(() => {
+              isLooping = false;
+            }, 50);
+          }
+        });
+
+        videoElement.addEventListener("ended", function () {
+          this.currentTime = 0;
+          this.play().catch((e) => console.warn(`Loop restart failed:`, e));
+        });
+      }
+
+      function startVideoPlayback(videoElement) {
+        // Attempt to play with enhanced error handling
+        const playPromise = videoElement.play();
+
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              console.log(`Video playing successfully: ${videoElement.id}`);
+              videoElement.classList.add("loaded");
+            })
+            .catch((error) => {
+              console.warn(
+                `Autoplay failed for ${videoElement.id}, will retry on user interaction:`,
+                error
+              );
+
+              // Retry on any user interaction
+              const retryPlay = () => {
+                videoElement
+                  .play()
+                  .catch((e) =>
+                    console.warn(
+                      `Manual play retry failed for ${videoElement.id}:`,
+                      e
+                    )
+                  );
+              };
+
+              // Multiple interaction listeners
+              document.addEventListener("click", retryPlay, { once: true });
+              document.addEventListener("touchstart", retryPlay, {
+                once: true,
+              });
+              document.addEventListener("keydown", retryPlay, { once: true });
+            });
+        }
+      }
+
+      function optimizeVideosForSafari() {
+        const isSafari = /^((?!chrome|android).)*safari/i.test(
+          navigator.userAgent
+        );
+
+        if (isSafari) {
+          console.log("Safari detected - applying video optimizations");
+
+          // Otimizar todos os vídeos existentes
+          const videos = document.querySelectorAll("video");
+          videos.forEach((video, index) => {
+            // Mudar preload para metadata no Safari
+            video.setAttribute("preload", "metadata");
+            video.setAttribute("x-webkit-airplay", "allow");
+
+            // Adicionar listeners específicos do Safari
+            video.addEventListener("loadedmetadata", function () {
+              // Forçar play após metadata carregar
+              setTimeout(() => {
+                this.play().catch((e) =>
+                  console.warn("Safari autoplay failed:", e)
+                );
+              }, 100 * index); // Delay escalonado
+            });
+
+            video.addEventListener("stalled", function () {
+              console.warn("Safari video stalled, attempting recovery");
+              setTimeout(() => {
+                this.load();
+                this.play().catch(() => {});
+              }, 500);
+            });
+
+            // Perfect seamless loop handling
+            let isLooping = false;
+            video.addEventListener("timeupdate", function () {
+              // Prevent multiple rapid calls
+              if (isLooping) return;
+
+              // Loop seamlessly when extremely close to the end (last 0.03 seconds)
+              if (
+                this.duration - this.currentTime < 0.03 &&
+                this.duration > 0
+              ) {
+                isLooping = true;
+                this.currentTime = 0;
+                // Reset flag after a brief moment
+                setTimeout(() => {
+                  isLooping = false;
+                }, 50);
+              }
+            });
+
+            // Melhor handling de loop no Safari - sem delay
+            video.addEventListener("ended", function () {
+              this.currentTime = 0;
+              this.play().catch((e) =>
+                console.warn("Safari loop restart failed:", e)
+              );
+            });
+          });
+        }
+      }
+
+      function optimizeAllImages() {
+        const images = document.querySelectorAll(".video-quadrant img");
+        images.forEach((img, index) => {
+          // Stagger loading to prevent bandwidth congestion
+          setTimeout(() => {
+            // Enhanced loading strategy
+            img.loading = "eager";
+
+            // Error handling with fallback
+            img.addEventListener("error", (error) => {
+              console.warn(`Image ${index + 1} load failed:`, error);
+              // Try fallback image
+              const fallbacks = [
+                "blonde.webp",
+                "brunette.webp",
+                "milf.webp",
+                "young.webp",
+              ];
+              if (!img.src.includes(".webp")) {
+                img.src = fallbacks[index] || fallbacks[0];
+              }
+            });
+
+            // Success monitoring
+            img.addEventListener("load", () => {
+              console.log(`Image ${index + 1} loaded successfully`);
+            });
+          }, index * 50); // Faster loading for images
+        });
+      }
+
+      function monitorImagePerformance() {
+        let imageMetrics = {};
+
+        document.querySelectorAll("img").forEach((img, index) => {
+          const imageId = `image-${index + 1}`;
+          imageMetrics[imageId] = {
+            loadAttempts: 0,
+            errors: 0,
+            loaded: false,
+          };
+
+          img.addEventListener("loadstart", () => {
+            imageMetrics[imageId].loadAttempts++;
+            console.log(
+              `Image ${index + 1} started loading (attempt ${
+                imageMetrics[imageId].loadAttempts
+              })`
+            );
+          });
+
+          img.addEventListener("load", () => {
+            imageMetrics[imageId].loaded = true;
+            console.log(`Image ${index + 1} loaded successfully`);
+          });
+
+          img.addEventListener("error", (e) => {
+            imageMetrics[imageId].errors++;
+            console.error(
+              `Image ${index + 1} error (count: ${
+                imageMetrics[imageId].errors
+              }):`,
+              e
+            );
+          });
+        });
+
+        // Log metrics every 10 seconds
+        setInterval(() => {
+          console.log("Image Performance Metrics:", imageMetrics);
+        }, 10000);
+      }
+      function setupNetworkAwareLoading() {
+        // Detect connection speed and adjust loading strategy
+        if ("connection" in navigator) {
+          const connection = navigator.connection;
+          console.log("Network info:", {
+            effectiveType: connection.effectiveType,
+            downlink: connection.downlink,
+            rtt: connection.rtt,
+            saveData: connection.saveData,
+          });
+
+          // Adjust loading strategy based on connection
+          if (
+            connection.effectiveType === "slow-2g" ||
+            connection.effectiveType === "2g"
+          ) {
+            console.log("Slow connection: using conservative loading");
+            document.querySelectorAll("img").forEach((img) => {
+              img.loading = "lazy";
+              img.decoding = "async";
+            });
+          } else if (
+            connection.effectiveType === "3g" ||
+            connection.downlink < 2
+          ) {
+            console.log("Medium connection: balanced loading");
+            document.querySelectorAll("img").forEach((img) => {
+              img.loading = "lazy";
+              img.decoding = "sync";
+            });
+          } else {
+            console.log("Fast connection: aggressive loading");
+            document.querySelectorAll("img").forEach((img) => {
+              img.loading = "eager";
+              img.decoding = "sync";
+            });
+          }
+
+          // Monitor connection changes
+          connection.addEventListener("change", () => {
+            console.log("Connection changed to:", connection.effectiveType);
+
+            // Re-evaluate video playback for both videos
+            const videos = document.querySelectorAll(".background-video");
+            videos.forEach((video) => {
+              if (
+                connection.effectiveType === "slow-2g" ||
+                connection.effectiveType === "2g"
+              ) {
+                video.pause();
+                document.body.classList.add("slow-connection");
+              } else {
+                document.body.classList.remove("slow-connection");
+                if (video.paused && video.readyState >= 3) {
+                  video.play().catch(() => {});
+                }
+              }
+            });
+          });
+        }
+
+        // Cloudflare CDN optimization headers
+        if ("serviceWorker" in navigator) {
+          // Register service worker for CDN caching optimization
+          navigator.serviceWorker.register("/sw.js").catch(() => {
+            console.log("Service worker registration failed (optional)");
+          });
+        }
+      }
+
+      (function () {
+        try {
+          // Garante que init rode ao carregar DOM, sem duplicar
+          document.addEventListener("DOMContentLoaded", function () {
+            try {
+              if (typeof init === "function") init();
+            } catch (e) {
+              console.error("Init error:", e);
+            }
+          });
+
+          // Fallback: se o listener original falhar, captura clique no botão
+          document.addEventListener("click", function (e) {
+            var btn =
+              e.target &&
+              (e.target.id === "start-quiz-btn"
+                ? e.target
+                : e.target.closest && e.target.closest("#start-quiz-btn"));
+            if (btn) {
+              try {
+                if (typeof startQuiz === "function") startQuiz();
+              } catch (err) {
+                console.error("startQuiz error:", err);
+              }
+            }
+          });
+        } catch (err) {
+          console.error("Safety boot error:", err);
+        }
+      })();
+    </script>
+  </body>
+</html>
