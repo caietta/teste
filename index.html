@@ -1,4 +1,16 @@
 ﻿<!DOCTYPE html>
+<!--
+===============================================================================
+🎬 PARA TROCAR O VÍDEO DE FUNDO - APENAS 1 LUGAR:
+===============================================================================
+1. Procure por: const VIDEO_URL = 
+2. Substitua APENAS o link entre as aspas
+3. Exemplo: const VIDEO_URL = "https://meusite.com/videos/meu-video.webm";
+4. Salve o arquivo - PRONTO! O vídeo mudará automaticamente
+===============================================================================
+⚠️  NÃO PRECISA MEXER EM MAIS NADA! É SÓ TROCAR ESSE LINK!
+===============================================================================
+-->
 
 <html lang="pt-BR">
   <head>
@@ -42,12 +54,6 @@
     <link
       rel="preload"
       as="image"
-      href="blonde.webp"
-      media="(min-width: 768px)"
-    />
-    <link
-      rel="preload"
-      as="image"
       href="brunette.webp"
       media="(min-width: 768px)"
     />
@@ -56,7 +62,7 @@
     <link
       rel="preload"
       as="video"
-      href="videofull.webm"
+      href="#VIDEO_PLACEHOLDER#"
       media="(min-width: 768px)"
     />
 
@@ -84,7 +90,12 @@
     <meta name="mobile-web-app-capable" content="yes" />
 
     <!-- Preload critical video for Safari -->
-    <link rel="preload" href="videofull.webm" as="video" type="video/webm" />
+    <link
+      rel="preload"
+      href="#VIDEO_PLACEHOLDER#"
+      as="video"
+      type="video/webm"
+    />
 
     <title>Hete Dating Quiz - Vind Je Perfecte Match</title>
     <style>
@@ -195,16 +206,6 @@
         display: none;
       }
 
-      /* Image background for intro screen */
-      body.intro-screen-active {
-        background-image: url("blonde.webp");
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        transition: background-image 0.8s ease-in-out;
-      }
-
       /* Smooth transition when leaving intro screen */
       body {
         transition: background-image 0.8s ease-in-out;
@@ -223,11 +224,6 @@
           -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
         }
-
-        body.intro-screen-active {
-          -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
-        }
       }
 
       /* iPhone specific optimizations */
@@ -236,23 +232,6 @@
           transform: translate3d(0, 0, 0);
           -webkit-transform: translate3d(0, 0, 0);
         }
-
-        body.intro-screen-active {
-          background-attachment: scroll; /* Better performance on iOS */
-        }
-      }
-
-      /* Overlay for intro screen image background */
-      body.intro-screen-active::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.4);
-        z-index: -1;
-        pointer-events: none;
       }
 
       /* Enhanced fallback gradient background for slow connections */
@@ -1549,10 +1528,9 @@
         playsinline
         webkit-playsinline
         preload="metadata"
-        crossorigin="anonymous"
         poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 960 1080'%3E%3Cdefs%3E%3ClinearGradient id='grad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231a1a1a;stop-opacity:1' /%3E%3Cstop offset='50%25' style='stop-color:%232d2d2d;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%231a1a1a;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23grad1)' /%3E%3C/svg%3E"
       >
-        <!-- Source will be added dynamically -->
+        <!-- O vídeo será carregado automaticamente pelo JavaScript usando VIDEO_URL -->
       </video>
     </div>
     <div class="screen active" id="intro-screen">
@@ -1689,6 +1667,67 @@
       </button>
     </div>
     <script>
+      // ============================================================================
+      // 🎬 CONFIGURAÇÃO ÚNICA DO VÍDEO - ALTERE APENAS ESTA LINHA:
+      // ============================================================================
+
+      const VIDEO_URL = "https://chatlovers.online/videos/VIDUNICO-FUNIL.webm";
+
+      // ============================================================================
+      // ⚠️  IMPORTANTE: ESTE É O ÚNICO LUGAR PARA TROCAR O VÍDEO!
+      // ============================================================================
+      // 1. Para trocar o vídeo, substitua APENAS o link na linha acima
+      // 2. Exemplo: const VIDEO_URL = "https://meusite.com/videos/meu-video.webm";
+      // 3. O vídeo será automaticamente aplicado em TODOS os lugares
+      // 4. Suporta formatos: .webm, .mp4
+      // 5. Não precisa mexer em mais nada no código!
+      // ============================================================================
+
+      // Sistema automático para aplicar o VIDEO_URL em todos os lugares
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("🎬 Aplicando VIDEO_URL em todos os elementos:", VIDEO_URL);
+
+        // Atualizar links de preload existentes
+        const preloadLinks = document.querySelectorAll(
+          'link[rel="preload"][as="video"]'
+        );
+        preloadLinks.forEach((link, index) => {
+          if (
+            link.href.includes("#VIDEO_PLACEHOLDER#") ||
+            link.href.includes("videofull.webm")
+          ) {
+            link.href = VIDEO_URL;
+            console.log(
+              `✅ Preload link ${index + 1} atualizado para:`,
+              VIDEO_URL
+            );
+          }
+        });
+
+        // Atualizar qualquer elemento que possa ter referências antigas ao vídeo
+        const allElements = document.querySelectorAll("*");
+        allElements.forEach((element) => {
+          ["src", "href", "data-src"].forEach((attr) => {
+            if (element.hasAttribute(attr)) {
+              const value = element.getAttribute(attr);
+              if (
+                value &&
+                (value.includes("#VIDEO_PLACEHOLDER#") ||
+                  value.includes("videofull.webm"))
+              ) {
+                element.setAttribute(attr, VIDEO_URL);
+                console.log(
+                  `✅ Elemento ${element.tagName} - atributo ${attr} atualizado para:`,
+                  VIDEO_URL
+                );
+              }
+            }
+          });
+        });
+
+        console.log("✅ Configuração de vídeo aplicada com sucesso!");
+      });
+
       const quizData = [
         {
           question: "Welke vrouw maakt jou NU het meest geil?",
@@ -1793,13 +1832,16 @@
       const progressBar = document.getElementById("progress-bar");
 
       function init() {
-        // Add intro screen background class initially
-        document.body.classList.add("intro-screen-active");
+        // Initialize video background immediately instead of intro screen
+        preloadBackgroundVideo();
+
+        // Also initialize the video immediately
+        setTimeout(() => {
+          initializeBackgroundVideo();
+        }, 500);
 
         // Show all questions now that privacy is handled separately
-        totalQuestionsSpan.textContent = quizData.length;
-
-        // Check if coming from privacy page
+        totalQuestionsSpan.textContent = quizData.length; // Check if coming from privacy page
         if (window.location.hash === "#quiz-start") {
           // Start from the second question (woman type preference) - index 1
           // Don't remove questions, just start from index 1
@@ -1905,7 +1947,7 @@
         );
 
         // Only preload our single video
-        const videoSrc = "videofull.webm";
+        const videoSrc = VIDEO_URL;
         preloadVideo(videoSrc, isSafari, true); // true = priority
 
         // Also call the main background video preload
@@ -1924,16 +1966,17 @@
 
         // Priority videos get more aggressive preload settings
         if (isPriority) {
-          video.preload = "auto"; // Force full preload for priority
-          video.setAttribute("preload", "auto");
+          video.preload = "metadata"; // Use metadata for remote videos
+          video.setAttribute("preload", "metadata");
         } else if (isSafari) {
           video.preload = "metadata"; // Safari funciona melhor com metadata
           video.setAttribute("x-webkit-airplay", "allow");
         } else {
-          video.preload = "auto";
+          video.preload = "metadata";
         }
         video.muted = true;
-        video.crossOrigin = "anonymous";
+        // Remove crossOrigin for remote videos to avoid CORS issues
+        // video.crossOrigin = "anonymous";
         video.src = src;
 
         video.addEventListener("loadeddata", () => {
@@ -2266,32 +2309,8 @@
       function startQuiz() {
         console.log("startQuiz called");
 
-        // Enhanced Safari/iOS detection
-        const isSafari = /^((?!chrome|android).)*safari/i.test(
-          navigator.userAgent
-        );
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-
-        // Remove intro screen background with optimized transition for Safari
-        if (isSafari || isIOS) {
-          document.body.style.transition = "background-image 0.4s ease-out";
-        } else {
-          document.body.style.transition = "background-image 0.6s ease-in-out";
-        }
-
-        document.body.classList.remove("intro-screen-active");
-
-        // Initialize video background immediately for Safari/iOS, with small delay for others
-        if (isSafari || isIOS) {
-          // Immediate activation for Safari/iOS
-          setTimeout(() => {
-            initializeBackgroundVideo();
-          }, 50);
-        } else {
-          setTimeout(() => {
-            initializeBackgroundVideo();
-          }, 150);
-        }
+        // Video is already initialized, just ensure it's running
+        initializeBackgroundVideo();
 
         const privacyScreen = document.getElementById("privacy-screen");
         console.log("privacy screen element:", privacyScreen);
@@ -2606,11 +2625,17 @@
           // Safari/iOS: Load immediately without any delay for best performance
           console.log("Safari/iOS detected - aggressive preload");
           preloadBackgroundVideo();
+          setTimeout(() => {
+            initializeBackgroundVideo();
+          }, 800);
         } else {
           // Other browsers: Small delay to let DOM settle
           setTimeout(() => {
             preloadBackgroundVideo();
           }, 50);
+          setTimeout(() => {
+            initializeBackgroundVideo();
+          }, 1000);
         }
 
         // Enhanced image optimization
@@ -2629,7 +2654,6 @@
       function preloadCriticalResources() {
         // Preload important images
         const criticalImages = [
-          "blonde.webp",
           "brunette.webp",
           "milf.webp",
           "young.webp",
@@ -2722,7 +2746,7 @@
       }
 
       // Single background video system
-      const videoSources = ["videofull.webm"];
+      const videoSources = [VIDEO_URL];
 
       let currentVideoIndex = 0;
       let preloadedVideos = new Map();
@@ -2745,32 +2769,18 @@
           navigator.userAgent
         );
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-        const isMobile =
-          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-            navigator.userAgent
-          );
 
-        // Clear existing sources
-        videoElement.innerHTML = "";
-        videoElement.pause();
-
-        // Add source
-        const source = document.createElement("source");
-        source.src = "videofull.webm";
-        source.type = "video/webm";
-        videoElement.appendChild(source);
-
-        // Configure video element for aggressive preload
+        // Configure video element for remote source
         videoElement.muted = true;
         videoElement.loop = true;
         videoElement.setAttribute("playsinline", "");
         videoElement.setAttribute("webkit-playsinline", "");
 
-        // Remove crossOrigin for local files to avoid CORS issues
-        // videoElement.crossOrigin = "anonymous";
+        // Remove crossOrigin for remote videos to avoid CORS issues
+        videoElement.removeAttribute("crossorigin");
 
-        // Aggressive preload settings - especially for Safari/iOS
-        videoElement.preload = "auto";
+        // Preload settings - metadata for remote videos
+        videoElement.preload = "metadata";
         videoElement.style.opacity = "0";
         videoElement.style.display = "block";
 
@@ -2780,20 +2790,9 @@
           videoElement.setAttribute("webkit-playsinline", "");
           videoElement.style.filter = "none";
           videoElement.style.webkitFilter = "none";
-
-          // Force load immediately on Safari
-          videoElement.load();
-
-          // Try to start buffering immediately
-          setTimeout(() => {
-            videoElement.currentTime = 0.1;
-            setTimeout(() => {
-              videoElement.currentTime = 0;
-            }, 50);
-          }, 100);
         }
 
-        // Setup enhanced load handlers with faster response
+        // Setup enhanced load handlers
         const handleCanPlay = () => {
           console.log(
             `✅ Background video can play - ready for smooth transition`
@@ -2813,7 +2812,6 @@
           videoElement.removeEventListener("error", handleError);
         };
 
-        // Use canplay for faster response, especially on Safari
         videoElement.addEventListener("canplay", handleCanPlay);
         videoElement.addEventListener("loadeddata", handleLoadedData);
         videoElement.addEventListener("error", handleError);
@@ -2821,13 +2819,16 @@
         // Setup perfect loop for when it eventually plays
         setupVideoLoop(videoElement);
 
-        // Load the video immediately
+        // Load the video
         videoElement.load();
       }
 
       function initializeBackgroundVideo() {
         const videoElement = document.getElementById("background-video");
-        if (!videoElement) return;
+        if (!videoElement) {
+          console.error("❌ Background video element not found!");
+          return;
+        }
 
         // Skip video entirely on slow connections
         if (document.body.classList.contains("slow-connection")) {
@@ -2835,71 +2836,73 @@
           return;
         }
 
-        console.log("🎬 Activating preloaded background video...");
+        console.log("🎬 Initializing background video...");
 
-        // Enhanced Safari/iOS detection
-        const isSafari = /^((?!chrome|android).)*safari/i.test(
-          navigator.userAgent
-        );
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        // Configure video element for remote source
+        videoElement.muted = true;
+        videoElement.loop = true;
+        videoElement.setAttribute("playsinline", "");
+        videoElement.setAttribute("webkit-playsinline", "");
+        videoElement.preload = "metadata";
 
-        // If video is already preloaded, activate it immediately
-        if (videoElement.classList.contains("preloaded")) {
-          console.log("✅ Using preloaded video for instant smooth transition");
+        // Remove any crossOrigin issues for remote videos
+        videoElement.removeAttribute("crossorigin");
 
-          // Immediate activation for Safari/iOS
-          videoElement.style.transition = "opacity 0.6s ease-out";
-          videoElement.style.opacity = "0";
-          videoElement.classList.add("loaded");
-
-          // Start playing immediately
-          const playPromise = videoElement.play();
-          if (playPromise !== undefined) {
-            playPromise
-              .then(() => {
-                // Instant fade in for faster response
-                videoElement.style.opacity = "0.8";
-                console.log("✅ Video playing with smooth transition");
-              })
-              .catch((e) => {
-                console.warn("Preloaded video play failed:", e);
-                // Retry for Safari/iOS
-                if (isSafari || isIOS) {
-                  setTimeout(() => {
-                    videoElement
-                      .play()
-                      .then(() => {
-                        videoElement.style.opacity = "0.8";
-                      })
-                      .catch(() => console.warn("Safari retry failed"));
-                  }, 100);
-                }
-              });
-          }
-
-          return;
+        // Ensure video has the correct source
+        const existingSource = videoElement.querySelector("source");
+        if (!existingSource) {
+          console.log("Adding source to video element...");
+          const source = document.createElement("source");
+          source.src = VIDEO_URL;
+          source.type = "video/webm";
+          videoElement.appendChild(source);
+        } else if (existingSource.src !== VIDEO_URL) {
+          existingSource.src = VIDEO_URL;
         }
 
-        // Fallback: If video wasn't preloaded, load it with Safari optimizations
-        console.log(
-          "⚠️ Video wasn't preloaded, loading with Safari optimizations..."
-        );
+        // Set up load handlers
+        const handleCanPlay = () => {
+          console.log("✅ Video can play - activating");
+          videoElement.classList.add("loaded");
+          videoElement.style.opacity = "0.8";
+          videoElement.play().catch((e) => {
+            console.warn("Play failed:", e);
+          });
+          videoElement.removeEventListener("canplay", handleCanPlay);
+        };
 
-        const isMobile =
-          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-            navigator.userAgent
-          );
+        const handleLoadedData = () => {
+          console.log("✅ Video data loaded");
+          videoElement.classList.add("loaded");
+          videoElement.style.opacity = "0.8";
+          videoElement.removeEventListener("loadeddata", handleLoadedData);
+        };
 
-        // Load single video with enhanced Safari support
-        loadVideoWithSafariOptimizations(
-          videoElement,
-          0,
-          isMobile,
-          isSafari,
-          isIOS
-        );
+        const handleError = (e) => {
+          console.error("❌ Video failed to load:", e);
+          console.log("Trying to reload video...");
+          setTimeout(() => {
+            videoElement.load();
+          }, 1000);
+          videoElement.removeEventListener("error", handleError);
+        };
 
-        console.log("Video loading with Safari/iOS optimizations");
+        videoElement.addEventListener("canplay", handleCanPlay);
+        videoElement.addEventListener("loadeddata", handleLoadedData);
+        videoElement.addEventListener("error", handleError);
+
+        // Load the video
+        videoElement.load();
+
+        // Force visibility after a delay as fallback
+        setTimeout(() => {
+          if (!videoElement.classList.contains("loaded")) {
+            console.log("🎬 Force activating video after timeout");
+            videoElement.classList.add("loaded");
+            videoElement.style.opacity = "0.8";
+            videoElement.play().catch(() => {});
+          }
+        }, 3000);
       }
 
       function loadVideoWithSafariOptimizations(
@@ -3065,14 +3068,6 @@
         setupVideoLoop(videoElement);
       }
 
-      // Add new source
-      const source = document.createElement("source");
-      source.src = "videofull.webm";
-      source.type = "video/webm";
-      const videoElement = document.getElementById("background-video");
-      if (videoElement) {
-        videoElement.appendChild(source);
-      }
       function preloadNextVideos(isMobile, isSafari, urlParams) {
         console.log("Single video mode - no additional preloading needed");
         // No need to preload since we only have one video
@@ -3232,12 +3227,7 @@
             img.addEventListener("error", (error) => {
               console.warn(`Image ${index + 1} load failed:`, error);
               // Try fallback image
-              const fallbacks = [
-                "blonde.webp",
-                "brunette.webp",
-                "milf.webp",
-                "young.webp",
-              ];
+              const fallbacks = ["brunette.webp", "milf.webp", "young.webp"];
               if (!img.src.includes(".webp")) {
                 img.src = fallbacks[index] || fallbacks[0];
               }
