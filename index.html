@@ -146,6 +146,7 @@
         left: 0;
         width: 100vw;
         height: 100vh;
+        min-height: 100vh;
         z-index: -2;
         overflow: hidden;
         margin: 0;
@@ -156,6 +157,7 @@
       .background-video {
         width: 100%;
         height: 100%;
+        min-height: 100vh;
         object-fit: cover;
         object-position: center center;
         opacity: 0;
@@ -215,6 +217,91 @@
       /* Hide video on intro screen - show image background instead */
       #intro-screen.active ~ .video-container {
         display: none;
+      }
+
+      /* Show video fullscreen on privacy screen */
+      #privacy-screen.active ~ .video-container {
+        display: block;
+        z-index: -2;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        min-height: 100vh;
+      }
+
+      #privacy-screen.active ~ .video-container .background-video {
+        opacity: 0.6;
+        z-index: -2;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        min-height: 100vh;
+        object-fit: cover;
+        object-position: center center;
+      }
+
+      /* For privacy screen: ensure video covers full page height even with scroll */
+      body:has(#privacy-screen.active) {
+        position: relative;
+      }
+
+      body:has(#privacy-screen.active) .video-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        min-height: 100vh;
+        z-index: -2;
+      }
+
+      body:has(#privacy-screen.active) .background-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        min-height: 100vh;
+        object-fit: cover;
+        object-position: center center;
+        transform: scale(1.1);
+      }
+
+      /* Show video fullscreen on quiz screen */
+      #quiz-screen.active ~ .video-container {
+        display: block;
+        z-index: -2;
+      }
+
+      #quiz-screen.active ~ .video-container .background-video {
+        opacity: 0.8;
+        z-index: -2;
+      }
+
+      /* Show video fullscreen on loading screen */
+      #loading-screen.active ~ .video-container {
+        display: block;
+        z-index: -2;
+      }
+
+      #loading-screen.active ~ .video-container .background-video {
+        opacity: 0.8;
+        z-index: -2;
+      }
+
+      /* Show video fullscreen on results screen */
+      #results-screen.active ~ .video-container {
+        display: block;
+        z-index: -2;
+      }
+
+      #results-screen.active ~ .video-container .background-video {
+        opacity: 0.8;
+        z-index: -2;
       }
 
       /* Smooth transition when leaving intro screen */
@@ -2381,7 +2468,232 @@
         screens.forEach((screen) => screen.classList.remove("active"));
         console.log("showing screen:", screenToShow);
         screenToShow.classList.add("active");
+
+        // Ensure video is visible and playing when showing privacy, quiz, loading, or results screens
+        if (
+          screenToShow === privacyScreen ||
+          screenToShow === quizScreen ||
+          screenToShow === loadingScreen ||
+          screenToShow === resultsScreen
+        ) {
+          console.log(
+            "🎬 Ensuring video is visible for screen:",
+            screenToShow.id
+          );
+
+          // Force video visibility and initialization
+          setTimeout(() => {
+            const videoContainer = document.querySelector(".video-container");
+            const videoElement = document.getElementById("background-video");
+
+            if (videoContainer) {
+              videoContainer.style.display = "block";
+              videoContainer.style.zIndex = "-2";
+
+              // Special handling for privacy screen to cover full page height
+              if (screenToShow === privacyScreen) {
+                console.log("🎬 Applying privacy screen video fullscreen fix");
+                videoContainer.style.position = "fixed";
+                videoContainer.style.top = "0";
+                videoContainer.style.left = "0";
+                videoContainer.style.width = "100vw";
+                videoContainer.style.height = "100vh";
+                videoContainer.style.minHeight = "100vh";
+
+                // Get the actual page height including scroll
+                const pageHeight = Math.max(
+                  document.body.scrollHeight,
+                  document.body.offsetHeight,
+                  document.documentElement.clientHeight,
+                  document.documentElement.scrollHeight,
+                  document.documentElement.offsetHeight
+                );
+
+                // Make sure video container covers the full page height
+                if (pageHeight > window.innerHeight) {
+                  videoContainer.style.height = pageHeight + "px";
+                }
+              }
+            }
+
+            if (videoElement) {
+              if (!videoElement.classList.contains("loaded")) {
+                initializeBackgroundVideo();
+              }
+
+              // Special video sizing for privacy screen
+              if (screenToShow === privacyScreen) {
+                videoElement.style.position = "absolute";
+                videoElement.style.top = "0";
+                videoElement.style.left = "0";
+                videoElement.style.width = "100%";
+                videoElement.style.height = "100%";
+                videoElement.style.minHeight = "100vh";
+                videoElement.style.objectFit = "cover";
+                videoElement.style.objectPosition = "center center";
+                videoElement.style.transform = "scale(1.02)"; // Slight scale to prevent gaps
+              } else {
+                // For other screens, restore normal video dimensions
+                console.log("🎬 Restoring normal video for non-privacy screen");
+                setTimeout(restoreVideoToOriginal, 50);
+              }
+
+              // Ensure video is playing
+              videoElement.play().catch(() => {});
+            }
+          }, 100);
+        }
       }
+
+      // Function to ensure video covers full page height dynamically
+      function adjustVideoForFullCoverage() {
+        const videoContainer = document.querySelector(".video-container");
+        const videoElement = document.getElementById("background-video");
+        const privacyScreen = document.getElementById("privacy-screen");
+
+        if (privacyScreen && privacyScreen.classList.contains("active")) {
+          console.log("🎬 Adjusting video for privacy screen full coverage");
+
+          if (videoContainer && videoElement) {
+            // Calculate full page dimensions
+            const pageHeight = Math.max(
+              document.body.scrollHeight,
+              document.body.offsetHeight,
+              document.documentElement.clientHeight,
+              document.documentElement.scrollHeight,
+              document.documentElement.offsetHeight
+            );
+
+            const viewportHeight = window.innerHeight;
+
+            // Ensure video covers the entire page
+            videoContainer.style.position = "fixed";
+            videoContainer.style.top = "0";
+            videoContainer.style.left = "0";
+            videoContainer.style.width = "100vw";
+            videoContainer.style.height =
+              Math.max(pageHeight, viewportHeight) + "px";
+            videoContainer.style.zIndex = "-2";
+
+            videoElement.style.position = "absolute";
+            videoElement.style.top = "0";
+            videoElement.style.left = "0";
+            videoElement.style.width = "100%";
+            videoElement.style.height = "100%";
+            videoElement.style.objectFit = "cover";
+            videoElement.style.objectPosition = "center center";
+            videoElement.style.transform = "scale(1.05)"; // Extra scale to prevent any gaps
+
+            console.log(
+              `🎬 Video adjusted: viewport=${viewportHeight}px, page=${pageHeight}px`
+            );
+          }
+        }
+      }
+
+      // Function to restore video to original dimensions (OTHER SCREENS)
+      function restoreVideoToOriginal() {
+        const videoContainer = document.querySelector(".video-container");
+        const videoElement = document.getElementById("background-video");
+
+        console.log("🎬 Restoring video to original dimensions");
+
+        // Restore standard video properties for other screens
+        if (videoContainer) {
+          videoContainer.style.position = "fixed";
+          videoContainer.style.top = "0";
+          videoContainer.style.left = "0";
+          videoContainer.style.width = "100vw";
+          videoContainer.style.height = "100vh"; // Back to viewport height only
+          videoContainer.style.zIndex = "-2";
+        }
+
+        if (videoElement) {
+          videoElement.style.position = "absolute";
+          videoElement.style.top = "0";
+          videoElement.style.left = "0";
+          videoElement.style.width = "100%";
+          videoElement.style.height = "100%";
+          videoElement.style.objectFit = "cover";
+          videoElement.style.objectPosition = "center center";
+          videoElement.style.transform = "none"; // Remove scaling
+        }
+
+        console.log("🎬 Video restored to standard dimensions");
+      }
+
+      // Monitor for privacy screen changes and adjust video
+      const privacyScreenObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (
+            mutation.type === "attributes" &&
+            mutation.attributeName === "class"
+          ) {
+            const target = mutation.target;
+            if (target.id === "privacy-screen") {
+              if (target.classList.contains("active")) {
+                // Privacy screen became active - apply fullscreen video
+                console.log("🎬 Privacy screen activated - adjusting video");
+                setTimeout(adjustVideoForFullCoverage, 150);
+              } else {
+                // Privacy screen became inactive - restore normal video
+                console.log("🎬 Privacy screen deactivated - restoring video");
+                setTimeout(restoreVideoToOriginal, 150);
+              }
+            }
+          }
+        });
+      });
+
+      // Start observing when DOM is loaded
+      document.addEventListener("DOMContentLoaded", () => {
+        const privacyScreen = document.getElementById("privacy-screen");
+        const quizScreen = document.getElementById("quiz-screen");
+        const loadingScreen = document.getElementById("loading-screen");
+        const resultsScreen = document.getElementById("results-screen");
+
+        // Observe privacy screen
+        if (privacyScreen) {
+          privacyScreenObserver.observe(privacyScreen, { attributes: true });
+        }
+
+        // Observe other screens to restore video when they become active
+        const restoreVideoObserver = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (
+              mutation.type === "attributes" &&
+              mutation.attributeName === "class"
+            ) {
+              const target = mutation.target;
+              if (
+                target.classList.contains("active") &&
+                (target.id === "quiz-screen" ||
+                  target.id === "loading-screen" ||
+                  target.id === "results-screen")
+              ) {
+                console.log(
+                  `🎬 ${target.id} activated - restoring normal video`
+                );
+                setTimeout(restoreVideoToOriginal, 150);
+              }
+            }
+          });
+        });
+
+        // Observe all other screens
+        [quizScreen, loadingScreen, resultsScreen].forEach((screen) => {
+          if (screen) {
+            restoreVideoObserver.observe(screen, { attributes: true });
+          }
+        });
+
+        // Also observe window resize for privacy screen
+        window.addEventListener("resize", () => {
+          if (privacyScreen && privacyScreen.classList.contains("active")) {
+            setTimeout(adjustVideoForFullCoverage, 100);
+          }
+        });
+      });
 
       // Start quiz
       function startQuiz() {
