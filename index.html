@@ -89,12 +89,23 @@
     <meta name="apple-touch-fullscreen" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
 
-    <!-- Preload critical video for Safari -->
+    <!-- iOS performance optimizations -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#1a1a1a" />
+    <meta name="msapplication-navbutton-color" content="#1a1a1a" />
+    <meta name="apple-mobile-web-app-title" content="Hete Dating" />
+
+    <!-- Faster video loading hints for iOS/Mobile -->
+    <link rel="dns-prefetch" href="//chatlovers.online" />
+    <link rel="preconnect" href="https://chatlovers.online" crossorigin />
+
+    <!-- Preload critical video for Safari/iOS with priority -->
     <link
       rel="preload"
       href="#VIDEO_PLACEHOLDER#"
       as="video"
       type="video/webm"
+      media="(min-width: 320px)"
     />
 
     <title>Hete Dating Quiz - Vind Je Perfecte Match</title>
@@ -1668,22 +1679,68 @@
     </div>
     <script>
       // ============================================================================
-      // 🎬 CONFIGURAÇÃO ÚNICA DO VÍDEO - ALTERE APENAS ESTA LINHA:
+      //  - ALTERE APENAS ESTA LINHA:
       // ============================================================================
 
       const VIDEO_URL = "https://chatlovers.online/videos/VIDUNICO-FUNIL.webm";
 
       // ============================================================================
-      // ⚠️  IMPORTANTE: ESTE É O ÚNICO LUGAR PARA TROCAR O VÍDEO!
-      // ============================================================================
-      // 1. Para trocar o vídeo, substitua APENAS o link na linha acima
-      // 2. Exemplo: const VIDEO_URL = "https://meusite.com/videos/meu-video.webm";
-      // 3. O vídeo será automaticamente aplicado em TODOS os lugares
-      // 4. Suporta formatos: .webm, .mp4
-      // 5. Não precisa mexer em mais nada no código!
+      // 📱 OTIMIZAÇÕES MÓVEIS/iOS - Carregamento Ultra-Rápido
       // ============================================================================
 
-      // Sistema automático para aplicar o VIDEO_URL em todos os lugares
+      // Detectar dispositivos móveis/iOS imediatamente
+      const isMobileDevice =
+        /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        );
+      const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      const isSafariDevice = /^((?!chrome|android).)*safari/i.test(
+        navigator.userAgent
+      );
+
+      // Cache específico para móveis
+      const mobileVideoCache = {
+        prefetched: false,
+        element: null,
+        startTime: performance.now(),
+      };
+
+      // Pré-carregar imediatamente em dispositivos móveis
+      if (isMobileDevice || isIOSDevice) {
+        console.log(
+          "📱 Dispositivo móvel detectado - iniciando pré-carregamento otimizado"
+        );
+
+        // Criar elemento de vídeo otimizado para mobile
+        const preloadVideo = document.createElement("video");
+        preloadVideo.src = VIDEO_URL;
+        preloadVideo.preload = "metadata";
+        preloadVideo.muted = true;
+        preloadVideo.playsInline = true;
+        preloadVideo.setAttribute("webkit-playsinline", "");
+        preloadVideo.style.display = "none";
+
+        // iOS optimizations
+        if (isIOSDevice) {
+          preloadVideo.setAttribute("disablePictureInPicture", "");
+          preloadVideo.style.transform = "translateZ(0)";
+        }
+
+        // Adicionar ao DOM para começar o download
+        document.head.appendChild(preloadVideo);
+        mobileVideoCache.element = preloadVideo;
+
+        preloadVideo.addEventListener("loadedmetadata", () => {
+          mobileVideoCache.prefetched = true;
+          const loadTime = performance.now() - mobileVideoCache.startTime;
+          console.log(
+            `📱 Vídeo pré-carregado em ${loadTime.toFixed(
+              2
+            )}ms para dispositivo móvel`
+          );
+        });
+      }
+
       document.addEventListener("DOMContentLoaded", () => {
         console.log("🎬 Aplicando VIDEO_URL em todos os elementos:", VIDEO_URL);
 
@@ -1832,13 +1889,34 @@
       const progressBar = document.getElementById("progress-bar");
 
       function init() {
-        // Initialize video background immediately instead of intro screen
-        preloadBackgroundVideo();
+        // Detect mobile/iOS early for optimized loading
+        const isMobile =
+          /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent
+          );
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-        // Also initialize the video immediately
-        setTimeout(() => {
-          initializeBackgroundVideo();
-        }, 500);
+        console.log(
+          `🎬 Initializing on ${isMobile ? "mobile" : "desktop"} device`
+        );
+
+        // Initialize video background immediately with mobile priority
+        if (isMobile || isIOS) {
+          // On mobile: start video loading immediately for faster response
+          console.log("📱 Mobile detected - starting immediate video preload");
+          preloadBackgroundVideo();
+
+          // Shorter delay for mobile devices
+          setTimeout(() => {
+            initializeBackgroundVideo();
+          }, 200); // Much faster on mobile
+        } else {
+          // Desktop: use original timing
+          preloadBackgroundVideo();
+          setTimeout(() => {
+            initializeBackgroundVideo();
+          }, 500);
+        }
 
         // Show all questions now that privacy is handled separately
         totalQuestionsSpan.textContent = quizData.length; // Check if coming from privacy page
@@ -2604,10 +2682,15 @@
 
       // Enhanced image optimization and monitoring system - optimized for Safari
       document.addEventListener("DOMContentLoaded", () => {
-        // Detect Safari early for immediate optimizations
+        // Enhanced device detection for optimized loading
         const isSafari = /^((?!chrome|android).)*safari/i.test(
           navigator.userAgent
         );
+        const isIOSDetection = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const isMobileDetection =
+          /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent
+          );
 
         // Detect slow connection first
         detectConnectionSpeed();
@@ -2615,19 +2698,20 @@
         // Preload background video for smooth transition, but keep it hidden
         console.log("Starting background video preload...");
 
-        // Enhanced Safari/iOS detection (moved to outer scope)
-        const safariDetection = /^((?!chrome|android).)*safari/i.test(
-          navigator.userAgent
-        );
-        const isIOSDetection = /iPad|iPhone|iPod/.test(navigator.userAgent);
-
-        if (safariDetection || isIOSDetection) {
-          // Safari/iOS: Load immediately without any delay for best performance
-          console.log("Safari/iOS detected - aggressive preload");
+        if (isIOSDetection || isMobileDetection) {
+          // iOS/Mobile: Ultra-aggressive preload for fastest response
+          console.log("📱 iOS/Mobile detected - ultra-fast preload strategy");
           preloadBackgroundVideo();
           setTimeout(() => {
             initializeBackgroundVideo();
-          }, 800);
+          }, 100); // Extremely fast for mobile
+        } else if (isSafari) {
+          // Safari desktop: Load immediately without delay
+          console.log("Safari desktop detected - aggressive preload");
+          preloadBackgroundVideo();
+          setTimeout(() => {
+            initializeBackgroundVideo();
+          }, 400);
         } else {
           // Other browsers: Small delay to let DOM settle
           setTimeout(() => {
@@ -2769,27 +2853,48 @@
           navigator.userAgent
         );
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const isMobile =
+          /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent
+          );
 
-        // Configure video element for remote source
+        // Configure video element for remote source with iOS optimizations
         videoElement.muted = true;
         videoElement.loop = true;
         videoElement.setAttribute("playsinline", "");
         videoElement.setAttribute("webkit-playsinline", "");
+        videoElement.playsInline = true; // Force inline play on iOS
 
         // Remove crossOrigin for remote videos to avoid CORS issues
         videoElement.removeAttribute("crossorigin");
 
-        // Preload settings - metadata for remote videos
-        videoElement.preload = "metadata";
+        // iOS/Mobile optimized preload settings - use 'none' for faster initial load
+        if (isIOS || isMobile) {
+          videoElement.preload = "none"; // Start with no preload for faster page load
+          console.log(
+            "📱 iOS/Mobile detected - using optimized preload strategy"
+          );
+        } else {
+          videoElement.preload = "metadata";
+        }
+
         videoElement.style.opacity = "0";
         videoElement.style.display = "block";
 
-        // Safari/iOS specific optimizations
+        // iOS/Safari specific optimizations for faster loading
         if (isSafari || isIOS) {
           videoElement.setAttribute("x-webkit-airplay", "allow");
           videoElement.setAttribute("webkit-playsinline", "");
           videoElement.style.filter = "none";
           videoElement.style.webkitFilter = "none";
+
+          // iOS specific: Disable picture-in-picture to save resources
+          videoElement.setAttribute("disablePictureInPicture", "");
+          videoElement.disablePictureInPicture = true;
+
+          // Force hardware acceleration on iOS
+          videoElement.style.transform = "translateZ(0)";
+          videoElement.style.webkitTransform = "translateZ(0)";
         }
 
         // Setup enhanced load handlers
@@ -2838,15 +2943,49 @@
 
         console.log("🎬 Initializing background video...");
 
-        // Configure video element for remote source
+        // Enhanced device detection
+        const isSafari = /^((?!chrome|android).)*safari/i.test(
+          navigator.userAgent
+        );
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const isMobile =
+          /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent
+          );
+
+        // Configure video element for remote source with mobile optimizations
         videoElement.muted = true;
         videoElement.loop = true;
         videoElement.setAttribute("playsinline", "");
         videoElement.setAttribute("webkit-playsinline", "");
-        videoElement.preload = "metadata";
+        videoElement.playsInline = true;
+
+        // Mobile/iOS optimized preload - start loading immediately when initializing
+        if (isIOS || isMobile) {
+          videoElement.preload = "metadata"; // Switch to metadata when ready to load
+          console.log(
+            "📱 Mobile/iOS - switching to metadata preload for faster loading"
+          );
+        } else {
+          videoElement.preload = "metadata";
+        }
 
         // Remove any crossOrigin issues for remote videos
         videoElement.removeAttribute("crossorigin");
+
+        // iOS/Mobile specific optimizations
+        if (isIOS || isMobile) {
+          // Disable picture-in-picture to save resources
+          videoElement.setAttribute("disablePictureInPicture", "");
+          videoElement.disablePictureInPicture = true;
+
+          // Force hardware acceleration
+          videoElement.style.transform = "translateZ(0)";
+          videoElement.style.webkitTransform = "translateZ(0)";
+
+          // Set optimal size hints for mobile
+          videoElement.style.willChange = "transform, opacity";
+        }
 
         // Ensure video has the correct source
         const existingSource = videoElement.querySelector("source");
@@ -2860,19 +2999,42 @@
           existingSource.src = VIDEO_URL;
         }
 
-        // Set up load handlers
+        // iOS/Mobile optimized load handlers with faster response
         const handleCanPlay = () => {
-          console.log("✅ Video can play - activating");
+          console.log("✅ Video can play - activating immediately");
           videoElement.classList.add("loaded");
           videoElement.style.opacity = "0.8";
-          videoElement.play().catch((e) => {
-            console.warn("Play failed:", e);
-          });
+
+          // Start playing immediately on mobile for better UX
+          const playPromise = videoElement.play();
+          if (playPromise !== undefined) {
+            playPromise.catch((e) => {
+              console.warn(
+                "Mobile autoplay failed, will retry on user interaction:",
+                e
+              );
+              // Add touch listener for iOS/Mobile
+              const startPlayOnInteraction = () => {
+                videoElement.play().catch(() => {});
+                document.removeEventListener(
+                  "touchstart",
+                  startPlayOnInteraction
+                );
+                document.removeEventListener("click", startPlayOnInteraction);
+              };
+              document.addEventListener("touchstart", startPlayOnInteraction, {
+                once: true,
+              });
+              document.addEventListener("click", startPlayOnInteraction, {
+                once: true,
+              });
+            });
+          }
           videoElement.removeEventListener("canplay", handleCanPlay);
         };
 
         const handleLoadedData = () => {
-          console.log("✅ Video data loaded");
+          console.log("✅ Video data loaded - mobile optimized");
           videoElement.classList.add("loaded");
           videoElement.style.opacity = "0.8";
           videoElement.removeEventListener("loadeddata", handleLoadedData);
@@ -2880,29 +3042,57 @@
 
         const handleError = (e) => {
           console.error("❌ Video failed to load:", e);
-          console.log("Trying to reload video...");
+          console.log("Trying to reload video with mobile fallback...");
           setTimeout(() => {
+            // Try reloading with different strategy on mobile
+            if (isIOS || isMobile) {
+              videoElement.preload = "auto"; // Try more aggressive preload on retry
+            }
             videoElement.load();
           }, 1000);
           videoElement.removeEventListener("error", handleError);
         };
 
+        // Enhanced event listeners for mobile
         videoElement.addEventListener("canplay", handleCanPlay);
         videoElement.addEventListener("loadeddata", handleLoadedData);
         videoElement.addEventListener("error", handleError);
 
-        // Load the video
+        // Mobile-specific: Add additional events for better compatibility
+        if (isIOS || isMobile) {
+          videoElement.addEventListener("loadedmetadata", () => {
+            console.log("📱 Mobile: Video metadata loaded");
+            // Force a small seek to help with iOS buffering
+            if (videoElement.duration > 0) {
+              videoElement.currentTime = 0.1;
+              setTimeout(() => {
+                videoElement.currentTime = 0;
+              }, 100);
+            }
+          });
+
+          // iOS specific: Handle webkit events
+          if (isIOS) {
+            videoElement.addEventListener("webkitbeginfullscreen", () => {
+              console.log("iOS: Preventing fullscreen");
+              return false;
+            });
+          }
+        }
+
+        // Load the video with mobile optimization
         videoElement.load();
 
-        // Force visibility after a delay as fallback
+        // Force visibility with shorter timeout on mobile
+        const timeoutDuration = isIOS || isMobile ? 2000 : 3000;
         setTimeout(() => {
           if (!videoElement.classList.contains("loaded")) {
-            console.log("🎬 Force activating video after timeout");
+            console.log("🎬 Force activating video after mobile timeout");
             videoElement.classList.add("loaded");
             videoElement.style.opacity = "0.8";
             videoElement.play().catch(() => {});
           }
-        }, 3000);
+        }, timeoutDuration);
       }
 
       function loadVideoWithSafariOptimizations(
