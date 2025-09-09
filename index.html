@@ -493,6 +493,16 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        /* Safari/iOS specific centering fixes */
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        -webkit-justify-content: center;
+        -webkit-align-items: center;
+        /* Prevent scrolling issues on mobile */
+        overflow: hidden;
+        /* Hardware acceleration for smooth centering */
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
       }
 
       .age-popup-content {
@@ -503,8 +513,18 @@
         padding: 40px;
         text-align: center;
         max-width: 400px;
-        margin: 20px;
+        width: 90%;
+        margin: auto;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        /* Perfect centering for Safari/iOS */
+        position: relative;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        /* Prevent content from being cut off */
+        max-height: 90vh;
+        overflow-y: auto;
       }
 
       .age-popup-content h2 {
@@ -543,6 +563,75 @@
         background: rgba(255, 255, 255, 0.1);
         border-color: rgba(255, 255, 255, 0.3);
         transform: translateY(-2px);
+      }
+
+      /* Mobile and iOS specific popup fixes */
+      @media screen and (max-width: 768px) {
+        .age-popup {
+          /* Force viewport height on mobile Safari */
+          height: 100vh;
+          height: -webkit-fill-available;
+          /* Prevent bounce scrolling */
+          -webkit-overflow-scrolling: touch;
+          overflow: hidden;
+        }
+
+        .age-popup-content {
+          width: 85%;
+          padding: 30px 20px;
+          /* More aggressive centering for mobile */
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+          margin: 0;
+          max-height: 80vh;
+        }
+      }
+
+      /* iPhone specific optimizations */
+      @media screen and (max-device-width: 896px) and (-webkit-min-device-pixel-ratio: 2) {
+        .age-popup {
+          /* iOS Safari specific viewport fixes */
+          height: 100vh;
+          height: -webkit-fill-available;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+        }
+
+        .age-popup-content {
+          /* Enhanced centering for iOS */
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+          width: 80%;
+          margin: 0;
+          /* Prevent keyboard displacement */
+          bottom: auto;
+        }
+      }
+
+      /* Safari specific popup fixes */
+      @supports (-webkit-appearance: none) {
+        .age-popup {
+          /* Safari backdrop filter optimization */
+          -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+        }
+
+        .age-popup-content {
+          /* Safari transform optimization */
+          -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+        }
       }
 
       .question-container {
